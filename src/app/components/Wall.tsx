@@ -3,7 +3,8 @@ import { Mesh, TextureLoader } from "three";
 import React, { useRef } from "react";
 import * as THREE from "three";
 
-export default function Wall() {
+export default function Wall(props) {
+  const { w } = props;
   const meshRef = useRef<Mesh>(null);
 
   const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(
@@ -44,8 +45,8 @@ export default function Wall() {
   });
   return (
     <>
-      <mesh position={[0, 2.05, -2]} rotation={[0, 0, 0]} scale={[1, 1, 1]}>
-        <planeGeometry args={[10, 8]} />
+      <mesh position={[0, 2.05, -2.8]} rotation={[0, 0, 0]} scale={[1, 1, 1]}>
+        <planeGeometry args={[w, 8]} />
         <meshStandardMaterial
           map={colorMap}
           displacementMap={displacementMap}
