@@ -5,7 +5,7 @@ import * as THREE from "three";
 
 export default function Floor(props) {
   const meshRef = useRef<Mesh>(null);
-  const { w } = props;
+  const { w, screenWidth } = props;
 
   const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(
     TextureLoader,
@@ -17,7 +17,7 @@ export default function Floor(props) {
     ]
   );
 
-  const repeatX = 6;
+  const repeatX = 20;
   const repeatY = 2;
   colorMap.repeat.set(repeatX, repeatY);
   colorMap.wrapS = THREE.RepeatWrapping;
@@ -44,8 +44,12 @@ export default function Floor(props) {
   });
   return (
     <>
-      <mesh position={[0, -3.5, 0]} rotation={[-1, 0, 0]} scale={[1, 1, 1]}>
-        <planeGeometry args={[w, 4]} />
+      <mesh
+        position={[w / 2 - screenWidth, -4, -1]}
+        rotation={[-1.5, 0, 0]}
+        scale={[1, 1, 1]}
+      >
+        <planeGeometry args={[w + screenWidth, 4]} />
         <meshStandardMaterial
           map={colorMap}
           displacementMap={displacementMap}

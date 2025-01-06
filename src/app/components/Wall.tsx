@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import * as THREE from "three";
 
 export default function Wall(props) {
-  const { w } = props;
+  const { w, screenWidth } = props;
   const meshRef = useRef<Mesh>(null);
 
   const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(
@@ -17,8 +17,8 @@ export default function Wall(props) {
     ]
   );
 
-  const repeatX = 3;
-  const repeatY = 3;
+  const repeatX = 10;
+  const repeatY = 4;
 
   colorMap.repeat.set(repeatX, repeatY);
   colorMap.wrapS = THREE.RepeatWrapping;
@@ -45,8 +45,12 @@ export default function Wall(props) {
   });
   return (
     <>
-      <mesh position={[0, 2.05, -2.8]} rotation={[0, 0, 0]} scale={[1, 1, 1]}>
-        <planeGeometry args={[w, 8]} />
+      <mesh
+        position={[w / 2 - screenWidth, 1.4, -2.8]}
+        rotation={[0, 0, 0]}
+        scale={[1, 1, 1]}
+      >
+        <planeGeometry args={[w + screenWidth, 9]} />
         <meshStandardMaterial
           map={colorMap}
           displacementMap={displacementMap}
