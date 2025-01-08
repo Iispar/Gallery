@@ -2,15 +2,17 @@
 "use client";
 
 import { useFrame, useThree } from "@react-three/fiber";
-import { Scroll, ScrollControls } from "@react-three/drei";
+import { Scroll, ScrollControls, useScroll } from "@react-three/drei";
 import Floor from "../components/Floor";
 import Wall from "../components/Wall";
 import Painting from "../components/Painting";
 import * as THREE from "three";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function View() {
   const { width } = useThree((state: any) => state.viewport);
+  const { camera, size } = useThree();
   const [clicked, setClicked] = useState(null);
 
   const w = 2.2;
@@ -19,21 +21,24 @@ export default function View() {
   const paintings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
   const xW = w + gap;
   const vec = new THREE.Vector3();
+  let current = "";
 
   useFrame((state) => {
-    if (clicked) {
-      console.log(clicked);
-      state.camera.position.lerp(
-        vec.set(clicked[0] + 0.5, clicked[1], clicked[2] + 4),
-        0.01
-      );
-      state.camera.updateProjectionMatrix();
-    } else {
-      state.camera.position.lerp(vec.set(0, 0, 5), 0.01);
-      state.camera.updateProjectionMatrix();
+    if (clicked && current !== clicked.hash) {
+      const clickedPosition = new THREE.Vector3();
+
+      clicked.ref.current.getWorldPosition(clickedPosition); // Get the world position
+
+      vec.set(clickedPosition.x, clickedPosition.y, clickedPosition.z + 4);
+
+      current = clicked.hash;
+    } else if (clicked === null) {
+      vec.set(0, 0, 5);
+      current = "";
     }
 
-    return null;
+    state.camera.position.lerp(vec, 0.01);
+    state.camera.updateMatrixWorld();
   });
 
   return (

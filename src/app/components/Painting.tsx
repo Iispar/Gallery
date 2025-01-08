@@ -1,21 +1,28 @@
+import { useScroll } from "@react-three/drei";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
-import { useRef, useState } from "react";
-
+import { useRef } from "react";
 import { TextureLoader } from "three";
 
 export default function Painting(props) {
   const { id, position, w, h, setClicked, clicked } = props;
   const texture = useLoader(TextureLoader, "image.jpeg");
 
+  const groupRef = useRef();
+
   return (
     <mesh>
-      <group position={position}>
+      <group ref={groupRef} position={position}>
         <mesh position={[0, 3, 0]} onClick={() => setClicked(null)}>
           <planeGeometry />
           <meshStandardMaterial />
         </mesh>
 
-        <sprite scale={[w, h, 1]} onClick={() => setClicked(position)}>
+        <sprite
+          scale={[w, h, 1]}
+          onClick={() =>
+            setClicked({ position: position, hash: id, ref: groupRef })
+          }
+        >
           <spriteMaterial map={texture} />
         </sprite>
 
