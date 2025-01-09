@@ -2,7 +2,7 @@
 "use client";
 
 import { useFrame, useThree } from "@react-three/fiber";
-import { Scroll, ScrollControls, useScroll } from "@react-three/drei";
+import { Html, Scroll, ScrollControls, useScroll } from "@react-three/drei";
 import Floor from "../components/Floor";
 import Wall from "../components/Wall";
 import Painting from "../components/Painting";
@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function View() {
   const { width } = useThree((state: any) => state.viewport);
-  const { camera, size } = useThree();
+  const { camera, size, gl } = useThree();
   const [clicked, setClicked] = useState(null);
 
   const w = 2.2;
@@ -29,7 +29,11 @@ export default function View() {
 
       clicked.ref.current.getWorldPosition(clickedPosition); // Get the world position
 
-      vec.set(clickedPosition.x, clickedPosition.y, clickedPosition.z + 4);
+      vec.set(
+        clickedPosition.x + 0.5,
+        clickedPosition.y,
+        clickedPosition.z + 4
+      );
 
       current = clicked.hash;
     } else if (clicked === null) {
@@ -46,22 +50,30 @@ export default function View() {
       horizontal
       damping={0.2}
       distance={0.9}
-      pages={(width / 3 - xW + paintings.length * xW) / width}
+      pages={(width / 3 - xW + (paintings.length + 1) * xW) / width}
       enabled={clicked === null}
     >
       <Scroll>
-        <group>
-          {paintings.map((illu, idx) => (
-            <Painting
-              setClicked={(e) => setClicked(e)}
-              key={idx}
-              id={idx}
-              position={[idx * xW - width / 3, 1.5, -2]}
-              w={w}
-              h={h}
-            />
-          ))}
-        </group>
+        <mesh position={[-4.5, 2, -2]}>
+          <planeGeometry />
+          <meshStandardMaterial />
+
+          <Html transform portal={{ current: gl.domElement.parentNode }}>
+            <div style={{ pointerEvents: "none" }}>meow</div>
+          </Html>
+        </mesh>
+        {paintings.map((illu, idx) => (
+          <Painting
+            setClicked={(e) => setClicked(e)}
+            clicked={clicked}
+            key={idx}
+            id={idx}
+            position={[idx * xW - width / 3 + 2, 1.5, -2]}
+            w={w}
+            h={h}
+          />
+        ))}
+
         <Wall screenWidth={width} w={paintings.length * xW} />
         <Floor screenWidth={width} w={paintings.length * xW} />
       </Scroll>
