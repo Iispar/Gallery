@@ -15,19 +15,22 @@ export default function Painting(props) {
     <group ref={groupRef} position={position}>
       {clicked?.hash == id ? (
         <Html
-          position={[0, 2.5, 0]}
+          position={[+0.5, 2.5, 0]}
           transform
           portal={{ current: gl.domElement.parentNode }}
         >
-          <p
-            style={{
-              color: "white",
-              fontSize: "24px",
-            }}
-            onClick={() => setClicked(null)}
-          >
-            RETURN
-          </p>
+          <div onClick={() => setClicked(null)}>
+            <p
+              style={{
+                color: "white",
+                fontSize: "24px",
+                pointerEvents: "none",
+                caretColor: "transparent",
+              }}
+            >
+              RETURN
+            </p>
+          </div>
         </Html>
       ) : (
         <></>

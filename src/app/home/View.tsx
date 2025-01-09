@@ -7,13 +7,14 @@ import Floor from "../components/Floor";
 import Wall from "../components/Wall";
 import Painting from "../components/Painting";
 import * as THREE from "three";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function View() {
   const { width } = useThree((state: any) => state.viewport);
   const { camera, size, gl } = useThree();
   const [clicked, setClicked] = useState(null);
+  const ref = useRef();
 
   const w = 2.2;
   const h = 3.4;
@@ -54,7 +55,7 @@ export default function View() {
       enabled={clicked === null}
     >
       <Scroll>
-        <mesh position={[-4.5, 2, -2]}>
+        <mesh position={[-width / 2 - 0.5, 2, -2]}>
           <planeGeometry />
           <meshStandardMaterial />
 
@@ -74,8 +75,8 @@ export default function View() {
           />
         ))}
 
-        <Wall screenWidth={width} w={paintings.length * xW} />
-        <Floor screenWidth={width} w={paintings.length * xW} />
+        <Wall screenWidth={width} w={(paintings.length + 2) * xW} />
+        <Floor screenWidth={width} w={(paintings.length + 2) * xW} />
       </Scroll>
     </ScrollControls>
   );
