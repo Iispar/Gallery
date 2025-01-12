@@ -17,8 +17,8 @@ export default function Wall(props) {
     ]
   );
 
-  const repeatX = 10;
-  const repeatY = 4;
+  const repeatX = 50;
+  const repeatY = 6;
 
   colorMap.repeat.set(repeatX, repeatY);
   colorMap.wrapS = THREE.RepeatWrapping;
@@ -46,7 +46,8 @@ export default function Wall(props) {
   return (
     <>
       <mesh
-        position={[w / 2 - screenWidth, 1.4, -2.8]}
+        receiveShadow
+        position={[w / 2 - screenWidth, 1.4, -2]}
         rotation={[0, 0, 0]}
         scale={[1, 1, 1]}
       >

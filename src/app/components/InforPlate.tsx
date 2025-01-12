@@ -19,9 +19,9 @@ export default function InfoPlate(props) {
   const { gl } = useThree();
 
   return (
-    <mesh position={[1.8, -1.1, 0]}>
-      <planeGeometry />
-      <meshStandardMaterial />
+    <mesh position={[1.8, -1.1, 0]} castShadow>
+      <boxGeometry args={[1, 1, 0.05]} />
+      <meshStandardMaterial color="white" />
 
       <Html transform portal={{ current: gl.domElement.parentNode }}>
         <div style={{ pointerEvents: "none" }}>

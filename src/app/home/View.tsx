@@ -25,6 +25,8 @@ export default function View() {
   let current = "";
 
   useFrame((state) => {
+    // TODO: When scrolling in clicked state scrolling is allowed. Scroll > leave > scroll
+    // results in the scrolling to jump
     if (clicked && current !== clicked.hash) {
       const clickedPosition = new THREE.Vector3();
 
@@ -55,7 +57,7 @@ export default function View() {
       enabled={clicked === null}
     >
       <Scroll>
-        <mesh position={[-width / 2 - 0.5, 2, -2]}>
+        <mesh position={[-width / 2, 2, -1.2]}>
           <planeGeometry />
           <meshStandardMaterial />
 
@@ -69,7 +71,7 @@ export default function View() {
             clicked={clicked}
             key={idx}
             id={idx}
-            position={[idx * xW - width / 3 + 2, 1.5, -2]}
+            position={[idx * xW - width / 3 + 2, 1.5, -1.2]}
             w={w}
             h={h}
           />

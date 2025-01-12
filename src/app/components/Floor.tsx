@@ -10,15 +10,15 @@ export default function Floor(props) {
   const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(
     TextureLoader,
     [
-      "painted_concrete_02_diff_4k.jpg",
-      "painted_concrete_02_disp_4k.jpg",
-      "painted_concrete_02_nor_gl_4k.jpg",
-      "painted_concrete_02_rough_4k.jpg",
+      "painted_concrete_02_diff_8k.jpg",
+      "painted_concrete_02_disp_8k.jpg",
+      "painted_concrete_02_nor_gl_8k.jpg",
+      "painted_concrete_02_rough_8k.jpg",
     ]
   );
 
-  const repeatX = 20;
-  const repeatY = 2;
+  const repeatX = 14;
+  const repeatY = 1;
   colorMap.repeat.set(repeatX, repeatY);
   colorMap.wrapS = THREE.RepeatWrapping;
   colorMap.wrapT = THREE.RepeatWrapping;
@@ -45,9 +45,10 @@ export default function Floor(props) {
   return (
     <>
       <mesh
+        receiveShadow
         position={[w / 2 - screenWidth, -4, -1]}
         rotation={[-1.5, 0, 0]}
-        scale={[1, 1, 1]}
+        scale={[1, 0.6, 1]}
       >
         <planeGeometry args={[w + screenWidth, 4]} />
         <meshStandardMaterial

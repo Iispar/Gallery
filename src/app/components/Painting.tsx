@@ -1,7 +1,8 @@
 import { useScroll, Text, Html } from "@react-three/drei";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import { useRef } from "react";
-import { TextureLoader } from "three";
+import { MeshBasicMaterial, TextureLoader } from "three";
+import * as THREE from "three";
 import InfoPlate from "./InforPlate";
 
 export default function Painting(props) {
@@ -36,14 +37,16 @@ export default function Painting(props) {
         <></>
       )}
 
-      <sprite
+      <mesh
+        castShadow
         scale={[w, h, 1]}
         onClick={() =>
           setClicked({ position: position, hash: id, ref: groupRef })
         }
       >
-        <spriteMaterial map={texture} />
-      </sprite>
+        <boxGeometry attach="geometry" args={[1, 1, 0.1]} />
+        <meshBasicMaterial attach="material" map={texture} />
+      </mesh>
 
       <InfoPlate
         author={"Iiro Partanen"}
