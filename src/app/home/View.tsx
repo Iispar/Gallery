@@ -35,7 +35,7 @@ export default function View() {
       vec.set(
         clickedPosition.x + 0.5,
         clickedPosition.y,
-        clickedPosition.z + 4
+        clickedPosition.z + 3.3
       );
 
       current = clicked.hash;
@@ -57,12 +57,33 @@ export default function View() {
       enabled={clicked === null}
     >
       <Scroll>
-        <mesh position={[-width / 2, 2, -1.2]}>
-          <planeGeometry />
-          <meshStandardMaterial />
+        <mesh position={[-width / 2 + 1, 0.7, -0.23]} castShadow>
+          <boxGeometry args={[3.2, 5, 0.1]} />
+          <meshStandardMaterial color="FFFFFF" />
 
           <Html transform portal={{ current: gl.domElement.parentNode }}>
-            <div style={{ pointerEvents: "none" }}>meow</div>
+            <div className="infoWrapper">
+              <h1 className="infoWrapper__title">Iiro Partanen</h1>
+              <p className="infoWrapper__body">
+                This is my personal gallery of art works that I have created and
+                will create in the future. Art is something I enjoy doing in my
+                free time, but by profession I am a software engineer. If there
+                is some need to contact me you can reach me by email. Please
+                also check out my github :).
+              </p>
+              <div className="infoWrapper__contact">
+                <p>iiro.s.partanen@gmail.com</p>
+                <p> github.com/iispar</p>
+              </div>
+            </div>
+          </Html>
+        </mesh>
+        <mesh position={[0, 3.5, 0]}>
+          <Html transform portal={{ current: gl.domElement.parentNode }}>
+            <p className="instructions">
+              {" "}
+              scroll or drag to view the art pieces.{" "}
+            </p>
           </Html>
         </mesh>
         {paintings.map((illu, idx) => (
@@ -71,7 +92,7 @@ export default function View() {
             clicked={clicked}
             key={idx}
             id={idx}
-            position={[idx * xW - width / 3 + 2, 1.5, -1.2]}
+            position={[idx * xW - width / 3 + 4, 1, -0.23]}
             w={w}
             h={h}
           />

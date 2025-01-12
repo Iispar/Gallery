@@ -47,7 +47,7 @@ export default function Wall(props) {
     <>
       <mesh
         receiveShadow
-        position={[w / 2 - screenWidth, 1.4, -2]}
+        position={[w / 2 - screenWidth, 1.4, -1]}
         rotation={[0, 0, 0]}
         scale={[1, 1, 1]}
       >

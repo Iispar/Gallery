@@ -22,8 +22,8 @@ export default function Home() {
       }}
     >
       <directionalLight
-        position={[0, 5, 4]}
-        intensity={2}
+        position={[0, 6, 4]}
+        intensity={4}
         color={0xffffff}
         ref={directionalLightRef}
         shadow-camera-left={-30}
@@ -31,11 +31,11 @@ export default function Home() {
         castShadow
       />
 
-      {isReady && (
+      {/* {isReady && (
         <directionalLightHelper
           args={[directionalLightRef?.current, 2, 0xff0000]}
         />
-      )}
+      )} */}
       <View />
     </Canvas>
   );
