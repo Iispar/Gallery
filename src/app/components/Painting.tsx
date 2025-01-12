@@ -1,6 +1,6 @@
 import { useScroll, Text, Html } from "@react-three/drei";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MeshBasicMaterial, TextureLoader } from "three";
 import * as THREE from "three";
 import InfoPlate from "./InforPlate";
@@ -9,8 +9,20 @@ export default function Painting(props) {
   const { id, position, w, h, setClicked, clicked } = props;
   const texture = useLoader(TextureLoader, "image.jpeg");
   const { gl } = useThree();
+  const scroll = useScroll();
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   const groupRef = useRef();
+
+  const resetImage = () => {
+    setClicked(null);
+    scroll.el.scrollLeft = scrollLeft;
+  };
+
+  const setImage = (props) => {
+    setClicked({ position: position, hash: id, ref: groupRef });
+    setScrollLeft(scroll.el.scrollLeft);
+  };
 
   return (
     <group ref={groupRef} position={position}>
@@ -20,7 +32,7 @@ export default function Painting(props) {
           transform
           portal={{ current: gl.domElement.parentNode }}
         >
-          <div onClick={() => setClicked(null)}>
+          <div onClick={() => resetImage()}>
             <p
               style={{
                 color: "white",
@@ -41,7 +53,7 @@ export default function Painting(props) {
         castShadow
         scale={[w, h, 1]}
         onClick={() =>
-          setClicked({ position: position, hash: id, ref: groupRef })
+          setImage({ position: position, hash: id, ref: groupRef })
         }
       >
         <boxGeometry attach="geometry" args={[1, 1, 0.1]} />

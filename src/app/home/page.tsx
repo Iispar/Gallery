@@ -15,7 +15,12 @@ export default function Home() {
     }
   });
   return (
-    <Canvas shadows style={{ height: "100vh", width: "100vw" }}>
+    <Canvas
+      shadows
+      style={{
+        height: "100vh",
+      }}
+    >
       <directionalLight
         position={[0, 5, 4]}
         intensity={2}
