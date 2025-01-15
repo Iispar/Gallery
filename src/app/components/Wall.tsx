@@ -51,7 +51,7 @@ export default function Wall(props) {
         rotation={[0, 0, 0]}
         scale={[1, 1, 1]}
       >
-        <planeGeometry args={[w + screenWidth, 9]} />
+        <planeGeometry args={[w * 2 + screenWidth, 9]} />
         <meshStandardMaterial
           map={colorMap}
           displacementMap={displacementMap}
