@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
-import { Inconsolata } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-
-const inconsolata = Inconsolata({
-  variable: "--font-inconsolata-sans",
-  subsets: ["latin"],
-  weight: "400",
-});
 
 const inconsolataSemiBold = localFont({
   src: "../../public/Inconsolata-SemiBold.ttf",

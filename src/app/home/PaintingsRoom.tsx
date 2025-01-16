@@ -1,13 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFrame, useThree } from "@react-three/fiber";
-import { Html, Scroll, ScrollControls, useScroll } from "@react-three/drei";
+import { Html, useScroll } from "@react-three/drei";
 import Floor from "../components/Floor";
 import Wall from "../components/Wall";
 import Painting from "../components/Painting";
 import * as THREE from "three";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-export default function PaintingsRoom(props) {
+export default function PaintingsRoom(props: any) {
   const { clicked, setClicked } = props;
   const { width } = useThree((state: any) => state.viewport);
 
@@ -24,9 +24,9 @@ export default function PaintingsRoom(props) {
   const xW = w + gap;
   const vec = new THREE.Vector3();
   let current = "";
-  const { camera, size, gl } = useThree();
+  const { gl } = useThree();
   const isDraggingRef = useRef(false);
-  let lastX = null;
+  let lastX: any = null;
   let lastTime = 0;
 
   useFrame((state) => {
@@ -53,7 +53,7 @@ export default function PaintingsRoom(props) {
     state.camera.updateMatrixWorld();
   });
 
-  const handleDrag = (e) => {
+  const handleDrag = (e: any) => {
     if (!isDraggingRef.current) return;
 
     const currentTime = Date.now();
@@ -78,12 +78,12 @@ export default function PaintingsRoom(props) {
     lastTime = currentTime;
   };
 
-  const handlePointerDown = (e) => {
+  const handlePointerDown = () => {
     isDraggingRef.current = true;
     lastX = null;
   };
 
-  const handlePointerUp = (e) => {
+  const handlePointerUp = () => {
     isDraggingRef.current = false;
     lastX = null;
   };
@@ -153,7 +153,7 @@ export default function PaintingsRoom(props) {
       </mesh>
       {paintings.map((illu, idx) => (
         <Painting
-          setClicked={(e) => setClicked(e)}
+          setClicked={(e: any) => setClicked(e)}
           clicked={clicked}
           key={idx}
           id={idx}

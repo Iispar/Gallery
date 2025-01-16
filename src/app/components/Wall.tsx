@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFrame, useLoader } from "@react-three/fiber";
 import { Mesh, TextureLoader } from "three";
 import React, { useRef } from "react";
 import * as THREE from "three";
 
-export default function Wall(props) {
+export default function Wall(props: any) {
   const { w, screenWidth } = props;
   const meshRef = useRef<Mesh>(null);
 
-  const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(
+  const [colorMap, displacementMap, normalMap, roughnessMap] = useLoader(
     TextureLoader,
     [
       "Plastic013A_4K-JPG_Color.jpg",

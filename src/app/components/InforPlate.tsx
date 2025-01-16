@@ -1,10 +1,9 @@
-import { useFrame, useLoader, useThree } from "@react-three/fiber";
-import { Mesh, TextureLoader } from "three";
-import React, { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useThree } from "@react-three/fiber";
+import React, { useEffect, useState } from "react";
 import { Html } from "@react-three/drei";
 
-export default function InfoPlate(props) {
+export default function InfoPlate(props: any) {
   const {
     author,
     year,

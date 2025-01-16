@@ -1,25 +1,26 @@
-import { useScroll, Text, Html } from "@react-three/drei";
-import { useFrame, useLoader, useThree } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
-import { MeshBasicMaterial, TextureLoader } from "three";
-import * as THREE from "three";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useScroll, Html } from "@react-three/drei";
+import { useLoader, useThree } from "@react-three/fiber";
+import { useRef, useState } from "react";
+import { TextureLoader } from "three";
 import InfoPlate from "./InforPlate";
 
-export default function Painting(props) {
+export default function Painting(props: any) {
   const { id, position, w, h, setClicked, clicked } = props;
   const texture = useLoader(TextureLoader, "image.jpeg");
   const { gl } = useThree();
   const scroll = useScroll();
   const [scrollLeft, setScrollLeft] = useState(0);
 
-  const groupRef = useRef();
+  const groupRef = useRef(null);
 
   const resetImage = () => {
     setClicked(null);
     scroll.el.scrollLeft = scrollLeft;
   };
 
-  const setImage = (props) => {
+  const setImage = (props: unknown) => {
     setClicked({ position: position, hash: id, ref: groupRef });
     setScrollLeft(scroll.el.scrollLeft);
   };

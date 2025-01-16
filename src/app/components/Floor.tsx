@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFrame, useLoader } from "@react-three/fiber";
 import { Mesh, TextureLoader } from "three";
 import React, { useRef } from "react";
 import * as THREE from "three";
 
-export default function Floor(props) {
+export default function Floor(props: any) {
   const meshRef = useRef<Mesh>(null);
   const { w, screenWidth } = props;
 
-  const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(
+  const [colorMap, displacementMap, normalMap, roughnessMap] = useLoader(
     TextureLoader,
     [
       "painted_concrete_02_diff_8k.jpg",
