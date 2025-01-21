@@ -23,7 +23,6 @@ export default function InfoPlate(props: any) {
     if (infoPlate && infoPlate.parentElement) {
       infoPlate.parentElement.style.pointerEvents = "none";
     }
-    console.log(gl);
   }, [infoPlate]);
 
   return (
