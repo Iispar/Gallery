@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useThree } from "@react-three/fiber";
 import React, { useEffect, useState } from "react";
@@ -22,31 +23,39 @@ export default function InfoPlate(props: any) {
     if (infoPlate && infoPlate.parentElement) {
       infoPlate.parentElement.style.pointerEvents = "none";
     }
+    console.log(gl);
   }, [infoPlate]);
 
   return (
-    <mesh position={[1.9, -1.1, 0]} castShadow>
-      <boxGeometry args={[1.3, 1, 0.1]} />
+    <mesh position={[1.9, -1.3, 0]} castShadow>
+      <boxGeometry args={[1.3, 0.5, 0.1]} />
       <meshStandardMaterial color="white" />
 
       <Html
-        style={{ pointerEvents: "none" }}
         transform
         portal={{ current: gl.domElement.parentNode }}
         ref={setInfoPlate}
       >
-        <div style={{ pointerEvents: "none" }}>
-          <p style={{ fontSize: "5px" }}>{author}</p>
-          <p style={{ fontSize: "3px" }}>{year}</p>
-          <p style={{ fontSize: "3px" }}>
-            {countryFin} | {countryEng}
-          </p>
-          <p style={{ fontSize: "5px" }}>{name}</p>
-          <p style={{ fontSize: "3px" }}>{size}</p>
-          <p style={{ fontSize: "3px" }}>{date}</p>
-          <p style={{ fontSize: "3px" }}>
-            {typeFin} | {typeEng}
-          </p>
+        <div className="infoPlate">
+          {/*         <div>
+            <p className="infoPlate__title">{author}</p>
+            <div className="infoPlate__year">
+              <div className="infoPlate__year__star"></div>
+              <p className="infoPlate__year__text">{year}</p>
+            </div>
+            <p className="infoPlate__body">
+              {countryFin}/{countryEng}
+            </p>
+          </div> */}
+
+          <div className="infoPlate__title">{name}</div>
+          <div>
+            <p className="infoPlate__body">{size}</p>
+            <div className="infoPlate__body">{date}</div>
+            <div className="infoPlate__body">
+              {typeFin}/{typeEng}
+            </div>
+          </div>
         </div>
       </Html>
     </mesh>

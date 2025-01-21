@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const inconsolataSemiBold = localFont({
+/* const inconsolataSemiBold = localFont({
   src: "../../public/Inconsolata-SemiBold.ttf",
+}); */
+
+const inconsolataMedium = localFont({
+  src: "../../public/Inconsolata-Medium.ttf",
 });
 
 export const metadata: Metadata = {
@@ -18,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inconsolataSemiBold.className} antialiased`}>
+      <body className={`${inconsolataMedium.className}   antialiased`}>
         {children}
       </body>
     </html>

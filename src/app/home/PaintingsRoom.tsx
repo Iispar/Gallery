@@ -28,6 +28,9 @@ export default function PaintingsRoom(props: any) {
   const isDraggingRef = useRef(false);
   let lastX: any = null;
   let lastTime = 0;
+  const cameraPos = window.innerWidth < 800 ? 7 : 5;
+  const zoomZ = window.innerWidth < 800 ? 5.5 : 3.3;
+  const zoomX = window.innerWidth < 800 ? 0.68 : 0.75;
 
   useFrame((state) => {
     // TODO: When scrolling in clicked state scrolling is allowed. Scroll > leave > scroll
@@ -38,18 +41,18 @@ export default function PaintingsRoom(props: any) {
       clicked.ref.current.getWorldPosition(clickedPosition); // Get the world position
 
       vec.set(
-        clickedPosition.x + 0.5,
+        clickedPosition.x + zoomX,
         clickedPosition.y,
-        clickedPosition.z + 3.3
+        clickedPosition.z + zoomZ
       );
 
       current = clicked.hash;
     } else if (clicked === null) {
-      vec.set(0, 0, 5);
+      vec.set(0, 0, cameraPos);
       current = "";
     }
 
-    state.camera.position.lerp(vec, 0.01);
+    state.camera.position.lerp(vec, 0.03);
     state.camera.updateMatrixWorld();
   });
 

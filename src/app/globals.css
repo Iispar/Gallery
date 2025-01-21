@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "inconsolata-regular";
+  src: url("../../public/Inconsolata-Regular.ttf");
+}
+@font-face {
+  font-family: "inconsolata-medium";
+  src: url("../../public/Inconsolata-Medium.ttf");
+}
+
+@font-face {
+  font-family: "inconsolata-semi";
+  src: url("../../public/Inconsolata-SemiBold.ttf");
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -27,6 +41,11 @@ body {
   letter-spacing: 0.03rem;
 }
 
+p {
+  margin: 0;
+  padding: 0;
+}
+
 .infoWrapper {
   margin-right: 2px;
   height: 200px;
@@ -46,6 +65,7 @@ body {
 }
 
 .infoWrapper__title {
+  font-family: "inconsolata-semi";
   font-size: 16px;
   pointer-events: none;
   caret-color: transparent;
@@ -68,10 +88,11 @@ body {
 
 .returnBtn {
   color: #616161;
-  font-size: 24px;
+  font-size: 14px;
+
   pointer-events: none;
   caret-color: transparent;
-  letter-spacing: 0.3rem;
+  letter-spacing: 0.2rem;
 }
 
 .instructions {
@@ -79,6 +100,53 @@ body {
   caret-color: transparent;
   letter-spacing: 0.08rem;
   color: #616161;
+}
+
+.infoPlate {
+  height: 21px;
+  width: 52px;
+  padding-top: 2px;
+  padding-left: 3px;
+  padding-bottom: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.infoPlate__body {
+  font-size: 0.15rem;
+  line-height: 3px;
+  padding-left: 0.5px;
+}
+
+.infoPlate__body p {
+  font-size: 0.15rem;
+}
+
+.infoPlate__year {
+  display: flex;
+  gap: 1px;
+  align-items: center;
+}
+
+.infoPlate__year__star {
+  background-image: url("../../public/star.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  height: 4px;
+  width: 4px;
+}
+
+.infoPlate__year__text {
+  font-size: 0.16rem;
+  line-height: 4px;
+}
+
+.infoPlate__title {
+  font-size: 0.3rem;
+  line-height: 5px;
+  padding-bottom: 1px;
 }
 
 p {

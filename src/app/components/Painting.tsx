@@ -29,7 +29,7 @@ export default function Painting(props: any) {
     <group ref={groupRef} position={position}>
       {clicked?.hash == id ? (
         <Html
-          position={[+0.5, 2.2, 0]}
+          position={[0.8, 2.2, 0]}
           transform
           portal={{ current: gl.domElement.parentNode }}
         >
