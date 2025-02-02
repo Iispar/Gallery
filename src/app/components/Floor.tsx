@@ -11,10 +11,10 @@ export default function Floor(props: any) {
   const [colorMap, displacementMap, normalMap, roughnessMap] = useLoader(
     TextureLoader,
     [
-      "painted_concrete_02_diff_8k.jpg",
-      "painted_concrete_02_disp_8k.jpg",
-      "painted_concrete_02_nor_gl_8k.jpg",
-      "painted_concrete_02_rough_8k.jpg",
+      "painted_concrete_02_diff_4k.jpg",
+      "painted_concrete_02_disp_4k.jpg",
+      "painted_concrete_02_nor_gl_4k.jpg",
+      "painted_concrete_02_rough_4k.jpg",
     ]
   );
 

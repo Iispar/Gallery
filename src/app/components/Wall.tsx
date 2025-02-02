@@ -11,10 +11,10 @@ export default function Wall(props: any) {
   const [colorMap, displacementMap, normalMap, roughnessMap] = useLoader(
     TextureLoader,
     [
-      "Plastic013A_4K-JPG_Color.jpg",
-      "Plastic013A_4K-JPG_Displacement.jpg",
-      "Plastic013A_4K-JPG_NormalGL.jpg",
-      "Plastic013A_4K-JPG_Roughness.jpg",
+      "Plastic013A_1K-JPG_Color.jpg",
+      "Plastic013A_1K-JPG_Displacement.jpg",
+      "Plastic013A_1K-JPG_NormalGL.jpg",
+      "Plastic013A_1K-JPG_Roughness.jpg",
     ]
   );
 
@@ -48,7 +48,7 @@ export default function Wall(props: any) {
     <>
       <mesh
         receiveShadow
-        position={[w / 2 - screenWidth, 1.4, -1]}
+        position={[w / 2 - screenWidth, 1.4, -0.9]}
         rotation={[0, 0, 0]}
         scale={[1, 1, 1]}
       >
