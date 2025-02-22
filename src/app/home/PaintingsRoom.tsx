@@ -1,21 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFrame, useThree } from "@react-three/fiber";
-import { Html, useScroll, Text } from "@react-three/drei";
+import { useScroll, Text } from "@react-three/drei";
 import Floor from "../components/Floor";
 import Wall from "../components/Wall";
 import Painting from "../components/Painting";
 import * as THREE from "three";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function PaintingsRoom(props: any) {
   const { clicked, setClicked } = props;
   const { width } = useThree((state: any) => state.viewport);
 
   const scroll = useScroll();
-  const [descriptionElement, setDescriptionElement] =
-    useState<HTMLDivElement | null>(null);
-  const [instructionsElement, setInsturctionsElement] =
-    useState<HTMLDivElement | null>(null);
 
   const w = 2.2;
   const h = 3.4;
@@ -24,7 +20,6 @@ export default function PaintingsRoom(props: any) {
   const xW = w + gap;
   const vec = new THREE.Vector3();
   let current = "";
-  const { gl } = useThree();
   const isDraggingRef = useRef(false);
   let lastX: any = null;
   let lastTime = 0;
@@ -105,18 +100,6 @@ export default function PaintingsRoom(props: any) {
       window.removeEventListener("pointerup", handlePointerUp);
     };
   }, []);
-
-  useEffect(() => {
-    if (instructionsElement && instructionsElement.parentElement) {
-      instructionsElement.parentElement.style.pointerEvents = "none";
-    }
-  }, [instructionsElement]);
-
-  useEffect(() => {
-    if (descriptionElement && descriptionElement.parentElement) {
-      descriptionElement.parentElement.style.pointerEvents = "none";
-    }
-  }, [descriptionElement]);
 
   return (
     <>
