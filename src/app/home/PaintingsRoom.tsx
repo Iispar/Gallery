@@ -117,46 +117,47 @@ export default function PaintingsRoom(props: any) {
       <mesh position={[-width / 2 + 1.8, 0.4, -0.23]} castShadow>
         <boxGeometry args={[3.2, 5, 0.1]} />
         <meshStandardMaterial color="white" />
+
+        <Text
+          letterSpacing={0.2}
+          fontSize={0.32}
+          fontWeight={500}
+          position={[-0, 2.2, 0.1]}
+          color="black"
+        >
+          Iiro Partanen
+        </Text>
+        <Text
+          letterSpacing={0.2}
+          textAlign="justify"
+          maxWidth={2.8}
+          fontSize={0.16}
+          position={[0, 0.5, 0.1]}
+          color="black"
+        >
+          This is my personal gallery of art works that I have created and will
+          create in the future. Art is something I enjoy doing in my free time,
+          but by profession I am a software engineer. If there is some need to
+          contact me you can reach me by email. Please also check out my github
+          :).
+        </Text>
+        <Text
+          letterSpacing={0.2}
+          fontSize={0.13}
+          position={[0.3, -2.1, 0.1]}
+          color="black"
+        >
+          iiro.s.partanen@gmail.com
+        </Text>
+        <Text
+          letterSpacing={0.2}
+          fontSize={0.13}
+          position={[0.68, -2.3, 0.1]}
+          color="black"
+        >
+          github.com/iispar
+        </Text>
       </mesh>
-      <Text
-        letterSpacing={0.2}
-        fontSize={0.32}
-        fontWeight={500}
-        position={[-2.26, 2.6, -0.18]}
-        color="black"
-      >
-        Iiro Partanen
-      </Text>
-      <Text
-        letterSpacing={0.2}
-        textAlign="justify"
-        maxWidth={2.8}
-        fontSize={0.16}
-        position={[-2.25, 0.9, -0.18]}
-        color="black"
-      >
-        This is my personal gallery of art works that I have created and will
-        create in the future. Art is something I enjoy doing in my free time,
-        but by profession I am a software engineer. If there is some need to
-        contact me you can reach me by email. Please also check out my github
-        :).
-      </Text>
-      <Text
-        letterSpacing={0.2}
-        fontSize={0.13}
-        position={[-1.9, -1.7, -0.18]}
-        color="black"
-      >
-        iiro.s.partanen@gmail.com
-      </Text>
-      <Text
-        letterSpacing={0.2}
-        fontSize={0.13}
-        position={[-1.53, -1.9, -0.18]}
-        color="black"
-      >
-        github.com/iispar
-      </Text>
 
       {paintings.map((illu, idx) => (
         <Painting
