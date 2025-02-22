@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useThree } from "@react-three/fiber";
-import React, { useEffect, useState } from "react";
-import { Html } from "@react-three/drei";
+import { useFrame, useThree } from "@react-three/fiber";
+import React, { useEffect, useRef, useState } from "react";
+import { Html, Text } from "@react-three/drei";
+import { Group } from "three";
 
 export default function InfoPlate(props: any) {
   const {
@@ -18,46 +19,57 @@ export default function InfoPlate(props: any) {
   } = props;
   const { gl } = useThree();
   const [infoPlate, setInfoPlate] = useState<HTMLDivElement | null>(null);
-
+  const groupRef = useRef<Group>(null);
   useEffect(() => {
     if (infoPlate && infoPlate.parentElement) {
       infoPlate.parentElement.style.pointerEvents = "none";
     }
   }, [infoPlate]);
 
+  useFrame(() => {
+    if (groupRef.current) {
+      groupRef.current.updateMatrixWorld(); // Forces immediate update
+    }
+  });
+
   return (
-    <mesh position={[1.9, -1.3, 0]} castShadow>
-      <boxGeometry args={[1.3, 0.5, 0.1]}></boxGeometry>
-      <meshStandardMaterial color="white" />
-
-      <Html
-        transform
-        position={[0, 0, 0.05]}
-        portal={{ current: gl.domElement.parentNode }}
-        ref={setInfoPlate}
-      >
-        <div className="infoPlate">
-          {/*         <div>
-            <p className="infoPlate__title">{author}</p>
-            <div className="infoPlate__year">
-              <div className="infoPlate__year__star"></div>
-              <p className="infoPlate__year__text">{year}</p>
-            </div>
-            <p className="infoPlate__body">
-              {countryFin}/{countryEng}
-            </p>
-          </div> */}
-
-          <div className="infoPlate__title">{name}</div>
-          <div>
-            <p className="infoPlate__body">{size}</p>
-            <div className="infoPlate__body">{date}</div>
-            <div className="infoPlate__body">
-              {typeFin}/{typeEng}
-            </div>
-          </div>
-        </div>
-      </Html>
-    </mesh>
+    <group ref={groupRef} position={[1.9, -1.3, 0]}>
+      <mesh castShadow>
+        <boxGeometry args={[1.3, 0.5, 0.1]}></boxGeometry>
+        <meshStandardMaterial color="white" />
+        <Text
+          letterSpacing={0.1}
+          fontSize={0.13}
+          position={[-0.04, 0.16, 0.06]}
+          color="black"
+        >
+          {name}
+        </Text>
+        <Text
+          letterSpacing={0.1}
+          fontSize={0.07}
+          position={[-0.42, 0.01, 0.05]}
+          color="black"
+        >
+          {size}
+        </Text>
+        <Text
+          letterSpacing={0.1}
+          fontSize={0.07}
+          position={[-0.36, -0.09, 0.05]}
+          color="black"
+        >
+          {date}
+        </Text>
+        <Text
+          letterSpacing={0.1}
+          fontSize={0.07}
+          position={[-0.29, -0.19, 0.05]}
+          color="black"
+        >
+          {typeFin}/{typeEng}
+        </Text>
+      </mesh>
+    </group>
   );
 }

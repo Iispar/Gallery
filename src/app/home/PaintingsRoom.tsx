@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFrame, useThree } from "@react-three/fiber";
-import { Html, useScroll } from "@react-three/drei";
+import { Html, useScroll, Text } from "@react-three/drei";
 import Floor from "../components/Floor";
 import Wall from "../components/Wall";
 import Painting from "../components/Painting";
@@ -121,40 +121,60 @@ export default function PaintingsRoom(props: any) {
   return (
     <>
       <mesh position={[0, 3.7, -0.23]}>
-        <Html
-          transform
-          portal={{ current: gl.domElement.parentNode }}
-          ref={setInsturctionsElement}
+        <Text
+          fontSize={0.16}
+          letterSpacing={0.3}
+          position={[0, 0, 0]}
+          color="grey"
+          fontWeight={600}
         >
-          <p className="instructions">scroll or drag to view the art pieces.</p>
-        </Html>
+          scroll or drag to view the art pieces.
+        </Text>
       </mesh>
       <mesh position={[-width / 2 + 1.8, 0.4, -0.23]} castShadow>
         <boxGeometry args={[3.2, 5, 0.1]} />
         <meshStandardMaterial color="white" />
-
-        <Html
-          position={[0, 0, -0.01]}
-          transform
-          portal={{ current: gl.domElement.parentNode }}
-          ref={setDescriptionElement}
-        >
-          <div className="infoWrapper">
-            <h1 className="infoWrapper__title">Iiro Partanen</h1>
-            <p className="infoWrapper__body">
-              This is my personal gallery of art works that I have created and
-              will create in the future. Art is something I enjoy doing in my
-              free time, but by profession I am a software engineer. If there is
-              some need to contact me you can reach me by email. Please also
-              check out my github :).
-            </p>
-            <div className="infoWrapper__contact">
-              <p>iiro.s.partanen@gmail.com</p>
-              <p> github.com/iispar</p>
-            </div>
-          </div>
-        </Html>
       </mesh>
+      <Text
+        letterSpacing={0.2}
+        fontSize={0.32}
+        fontWeight={500}
+        position={[-2.26, 2.6, -0.18]}
+        color="black"
+      >
+        Iiro Partanen
+      </Text>
+      <Text
+        letterSpacing={0.2}
+        textAlign="justify"
+        maxWidth={2.8}
+        fontSize={0.16}
+        position={[-2.25, 0.9, -0.18]}
+        color="black"
+      >
+        This is my personal gallery of art works that I have created and will
+        create in the future. Art is something I enjoy doing in my free time,
+        but by profession I am a software engineer. If there is some need to
+        contact me you can reach me by email. Please also check out my github
+        :).
+      </Text>
+      <Text
+        letterSpacing={0.2}
+        fontSize={0.13}
+        position={[-1.9, -1.7, -0.18]}
+        color="black"
+      >
+        iiro.s.partanen@gmail.com
+      </Text>
+      <Text
+        letterSpacing={0.2}
+        fontSize={0.13}
+        position={[-1.53, -1.9, -0.18]}
+        color="black"
+      >
+        github.com/iispar
+      </Text>
+
       {paintings.map((illu, idx) => (
         <Painting
           setClicked={(e: any) => setClicked(e)}
