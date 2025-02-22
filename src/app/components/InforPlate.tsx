@@ -27,11 +27,12 @@ export default function InfoPlate(props: any) {
 
   return (
     <mesh position={[1.9, -1.3, 0]} castShadow>
-      <boxGeometry args={[1.3, 0.5, 0.1]} />
+      <boxGeometry args={[1.3, 0.5, 0.1]}></boxGeometry>
       <meshStandardMaterial color="white" />
 
       <Html
         transform
+        position={[0, 0, 0.05]}
         portal={{ current: gl.domElement.parentNode }}
         ref={setInfoPlate}
       >

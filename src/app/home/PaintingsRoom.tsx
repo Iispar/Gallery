@@ -134,6 +134,7 @@ export default function PaintingsRoom(props: any) {
         <meshStandardMaterial color="white" />
 
         <Html
+          position={[0, 0, -0.01]}
           transform
           portal={{ current: gl.domElement.parentNode }}
           ref={setDescriptionElement}
