@@ -3,7 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import View from "./View";
 import { Suspense } from "react";
-import { Html, Text } from "@react-three/drei";
+import { Html } from "@react-three/drei";
 
 export default function Home() {
   return (
