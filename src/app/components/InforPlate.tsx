@@ -16,6 +16,8 @@ export default function InfoPlate(props: any) {
     date,
     typeFin,
     typeEng,
+    x,
+    y,
   } = props;
   const { gl } = useThree();
   const [infoPlate, setInfoPlate] = useState<HTMLDivElement | null>(null);
@@ -33,14 +35,15 @@ export default function InfoPlate(props: any) {
   });
 
   return (
-    <group ref={groupRef} position={[1.9, -1.3, 0]}>
+    <group ref={groupRef} position={[x, y, 0]}>
       <mesh castShadow>
         <boxGeometry args={[1.3, 0.5, 0.1]}></boxGeometry>
         <meshStandardMaterial color="white" />
         <Text
           letterSpacing={0.1}
           fontSize={0.13}
-          position={[-0.04, 0.16, 0.06]}
+          anchorX="left"
+          position={[-0.59, 0.16, 0.06]}
           color="black"
         >
           {name}
@@ -48,7 +51,8 @@ export default function InfoPlate(props: any) {
         <Text
           letterSpacing={0.1}
           fontSize={0.07}
-          position={[-0.42, 0.01, 0.05]}
+          anchorX="left"
+          position={[-0.57, 0.02, 0.05]}
           color="black"
         >
           {size}
@@ -56,7 +60,8 @@ export default function InfoPlate(props: any) {
         <Text
           letterSpacing={0.1}
           fontSize={0.07}
-          position={[-0.36, -0.09, 0.05]}
+          anchorX="left"
+          position={[-0.57, -0.08, 0.05]}
           color="black"
         >
           {date}
@@ -64,7 +69,8 @@ export default function InfoPlate(props: any) {
         <Text
           letterSpacing={0.1}
           fontSize={0.07}
-          position={[-0.29, -0.19, 0.05]}
+          anchorX="left"
+          position={[-0.57, -0.18, 0.05]}
           color="black"
         >
           {typeFin}/{typeEng}

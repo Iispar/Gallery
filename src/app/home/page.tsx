@@ -3,7 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import View from "./View";
 import { Suspense } from "react";
-import { Text } from "@react-three/drei";
+import { Html, Text } from "@react-three/drei";
 
 export default function Home() {
   return (
@@ -21,7 +21,22 @@ export default function Home() {
         shadow-camera-right={30}
         castShadow
       />
-      <Suspense fallback={<Text>loading...</Text>}>
+      <Suspense
+        fallback={
+          <>
+            <Html>
+              <div
+                style={{
+                  position: "absolute",
+                  left: "-30px",
+                }}
+              >
+                loading...
+              </div>
+            </Html>
+          </>
+        }
+      >
         <View />
       </Suspense>
     </Canvas>

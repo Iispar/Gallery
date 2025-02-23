@@ -6,6 +6,7 @@ import Wall from "../components/Wall";
 import Painting from "../components/Painting";
 import * as THREE from "three";
 import { useEffect, useRef } from "react";
+import { painting } from "../data/paintings";
 
 export default function PaintingsRoom(props: any) {
   const { clicked, setClicked } = props;
@@ -16,7 +17,7 @@ export default function PaintingsRoom(props: any) {
   const w = 2.2;
   const h = 3.4;
   const gap = 3;
-  const paintings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  const paintings = painting;
   const xW = w + gap;
   const vec = new THREE.Vector3();
   let current = "";
@@ -139,7 +140,7 @@ export default function PaintingsRoom(props: any) {
           create in the future. Art is something I enjoy doing in my free time,
           but by profession I am a software engineer. If there is some need to
           contact me you can reach me by email. Please also check out my github
-          :).
+          :)
         </Text>
         <Text
           letterSpacing={0.2}
@@ -159,7 +160,7 @@ export default function PaintingsRoom(props: any) {
         </Text>
       </mesh>
 
-      {paintings.map((illu, idx) => (
+      {paintings.map((painting, idx) => (
         <Painting
           setClicked={(e: any) => setClicked(e)}
           clicked={clicked}
@@ -168,6 +169,17 @@ export default function PaintingsRoom(props: any) {
           position={[(1 + idx) * xW - width / 2, 1, -0.23]}
           w={w}
           h={h}
+          author={painting.author}
+          year={painting.year}
+          countryFin={painting.countryFin}
+          countryEng={painting.countryEng}
+          name={painting.name}
+          sizeX={painting.sizeX}
+          sizeY={painting.sizeY}
+          date={painting.date}
+          typeFin={painting.typeFin}
+          typeEng={painting.typeEng}
+          imageUrl={painting.imageUrl}
         />
       ))}
 

@@ -7,8 +7,26 @@ import { TextureLoader } from "three";
 import InfoPlate from "./InforPlate";
 
 export default function Painting(props: any) {
-  const { id, position, w, h, setClicked, clicked } = props;
-  const texture = useLoader(TextureLoader, "image.jpeg");
+  const {
+    id,
+    position,
+    w,
+    h,
+    setClicked,
+    clicked,
+    author,
+    year,
+    countryFin,
+    countryEng,
+    name,
+    sizeX,
+    sizeY,
+    date,
+    typeFin,
+    typeEng,
+    imageUrl,
+  } = props;
+  const texture = useLoader(TextureLoader, imageUrl as string);
   const { gl } = useThree();
   const scroll = useScroll();
   const [scrollLeft, setScrollLeft] = useState(0);
@@ -43,7 +61,7 @@ export default function Painting(props: any) {
 
       <mesh
         castShadow
-        scale={[w, h, 1]}
+        scale={[sizeY / 100, sizeX / 100, 1]}
         onClick={() =>
           setImage({ position: position, hash: id, ref: groupRef })
         }
@@ -53,15 +71,17 @@ export default function Painting(props: any) {
       </mesh>
 
       <InfoPlate
-        author={"Iiro Partanen"}
-        year={"2001"}
-        countryFin={"Suomi"}
-        countryEng={"Finland"}
-        name={"Cute bird meow"}
-        size={"200x200"}
-        date={"02/11/2024"}
-        typeFin={"Akryyli"}
-        typeEng={"Acrtylic"}
+        author={author}
+        year={year}
+        countryFin={countryFin}
+        countryEng={countryEng}
+        name={name}
+        size={sizeX + "x" + sizeY}
+        date={date}
+        typeFin={typeFin}
+        typeEng={typeEng}
+        x={sizeX / 350 + 1.1}
+        y={-(sizeY / 100) + 0.9}
       />
     </group>
   );
