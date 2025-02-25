@@ -37,14 +37,14 @@ export default function InfoPlate(props: any) {
   return (
     <group ref={groupRef} position={[x, y, 0]}>
       <mesh castShadow>
-        <boxGeometry args={[1.3, 0.5, 0.1]}></boxGeometry>
+        <boxGeometry args={[1.3, 0.5, 0.01]}></boxGeometry>
         <meshStandardMaterial color="white" />
         <Text
           letterSpacing={0.1}
           fontSize={0.13}
           anchorX="left"
-          position={[-0.59, 0.16, 0.06]}
-          color="black"
+          position={[-0.59, 0.16, 0.01]}
+          color="#333333"
         >
           {name}
         </Text>
@@ -52,8 +52,8 @@ export default function InfoPlate(props: any) {
           letterSpacing={0.1}
           fontSize={0.07}
           anchorX="left"
-          position={[-0.57, 0.02, 0.05]}
-          color="black"
+          position={[-0.57, 0.02, 0.01]}
+          color="#333333"
         >
           {size}
         </Text>
@@ -61,8 +61,8 @@ export default function InfoPlate(props: any) {
           letterSpacing={0.1}
           fontSize={0.07}
           anchorX="left"
-          position={[-0.57, -0.08, 0.05]}
-          color="black"
+          position={[-0.57, -0.08, 0.01]}
+          color="#333333"
         >
           {date}
         </Text>
@@ -70,8 +70,8 @@ export default function InfoPlate(props: any) {
           letterSpacing={0.1}
           fontSize={0.07}
           anchorX="left"
-          position={[-0.57, -0.18, 0.05]}
-          color="black"
+          position={[-0.57, -0.18, 0.01]}
+          color="#333333"
         >
           {typeFin}/{typeEng}
         </Text>

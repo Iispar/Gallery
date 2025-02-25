@@ -28,7 +28,8 @@ export default function Home() {
               <div
                 style={{
                   position: "absolute",
-                  left: "-30px",
+                  left: "-40px",
+                  color: "#333333",
                 }}
               >
                 loading...

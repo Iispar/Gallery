@@ -15,7 +15,7 @@ export default function PaintingsRoom(props: any) {
   const scroll = useScroll();
 
   const w = 2.2;
-  const h = 3.4;
+  const h = 1.4;
   const gap = 3;
   const paintings = painting;
   const xW = w + gap;
@@ -68,7 +68,7 @@ export default function PaintingsRoom(props: any) {
 
     if (deltaTime > 0) {
       const velocity = Math.abs(deltaX / deltaTime);
-      const speedFactor = Math.min(velocity * 2, 4);
+      const speedFactor = Math.min(velocity * 2, 1);
 
       scroll.el.scrollLeft += deltaX * speedFactor * -1;
     }
@@ -116,15 +116,15 @@ export default function PaintingsRoom(props: any) {
         </Text>
       </mesh>
       <mesh position={[-width / 2 + 1.8, 0.4, -0.23]} castShadow>
-        <boxGeometry args={[3.2, 5, 0.1]} />
+        <boxGeometry args={[3.2, 5, 0.02]} />
         <meshStandardMaterial color="white" />
 
         <Text
           letterSpacing={0.2}
           fontSize={0.32}
           fontWeight={500}
-          position={[-0, 2.2, 0.1]}
-          color="black"
+          position={[-0, 2.2, 0.02]}
+          color="#333333"
         >
           Iiro Partanen
         </Text>
@@ -133,8 +133,8 @@ export default function PaintingsRoom(props: any) {
           textAlign="justify"
           maxWidth={2.8}
           fontSize={0.16}
-          position={[0, 0.5, 0.1]}
-          color="black"
+          position={[0, 0.5, 0.02]}
+          color="#333333"
         >
           This is my personal gallery of art works that I have created and will
           create in the future. Art is something I enjoy doing in my free time,
@@ -142,22 +142,32 @@ export default function PaintingsRoom(props: any) {
           contact me you can reach me by email. Please also check out my github
           :)
         </Text>
-        <Text
-          letterSpacing={0.2}
-          fontSize={0.13}
-          position={[0.3, -2.1, 0.1]}
-          color="black"
+        <mesh
+          onClick={() =>
+            (window.location.href = "mailto:iiro.s.partanen@gmail.com")
+          }
         >
-          iiro.s.partanen@gmail.com
-        </Text>
-        <Text
-          letterSpacing={0.2}
-          fontSize={0.13}
-          position={[0.68, -2.3, 0.1]}
-          color="black"
+          <Text
+            letterSpacing={0.2}
+            fontSize={0.13}
+            position={[0.3, -2.1, 0.02]}
+            color="#0000EE"
+          >
+            iiro.s.partanen@gmail.com
+          </Text>
+        </mesh>
+        <mesh
+          onClick={() => (window.location.href = "https://github.com/iispar")}
         >
-          github.com/iispar
-        </Text>
+          <Text
+            letterSpacing={0.2}
+            fontSize={0.13}
+            position={[0.68, -2.3, 0.02]}
+            color="#0000EE"
+          >
+            github.com/iispar
+          </Text>
+        </mesh>
       </mesh>
 
       {paintings.map((painting, idx) => (

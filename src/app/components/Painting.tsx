@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useScroll, Html } from "@react-three/drei";
+import { useScroll, Text } from "@react-three/drei";
 import { useLoader, useThree } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { TextureLoader } from "three";
@@ -46,15 +46,17 @@ export default function Painting(props: any) {
   return (
     <group ref={groupRef} position={position}>
       {clicked?.hash == id ? (
-        <Html
-          position={[0.8, 2.2, 0]}
-          transform
-          portal={{ current: gl.domElement.parentNode }}
-        >
-          <div onClick={() => resetImage()}>
-            <p className="returnBtn">RETURN</p>
-          </div>
-        </Html>
+        <mesh onClick={() => resetImage()}>
+          <Text
+            fontSize={0.3}
+            letterSpacing={0.2}
+            position={[1, 2.0, 0.1]}
+            color="grey"
+            fontWeight={400}
+          >
+            RETURN
+          </Text>
+        </mesh>
       ) : (
         <></>
       )}
@@ -66,8 +68,13 @@ export default function Painting(props: any) {
           setImage({ position: position, hash: id, ref: groupRef })
         }
       >
-        <boxGeometry attach="geometry" args={[1, 1, 0.1]} />
-        <meshBasicMaterial attach="material" map={texture} />
+        <boxGeometry attach="geometry" args={[1, 1, 0.08]} />
+        <meshBasicMaterial attach="material-0" color="white" />
+        <meshBasicMaterial attach="material-1" color="white" />
+        <meshBasicMaterial attach="material-2" color="white" />
+        <meshBasicMaterial attach="material-3" color="white" />
+        <meshBasicMaterial attach="material-4" map={texture} />
+        <meshBasicMaterial attach="material-5" color="white" />
       </mesh>
 
       <InfoPlate
