@@ -103,6 +103,9 @@ export default function PaintingsRoom(props: any) {
       window.removeEventListener("pointermove", (e) => handleDrag(e, "mobile"));
       window.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("pointerup", handlePointerUp);
+      window.removeEventListener("touchmove", (e) => handleDrag(e, "mobile"));
+      window.removeEventListener("touchstart", handlePointerDown);
+      window.removeEventListener("touchend", handlePointerUp);
     };
   }, []);
 
