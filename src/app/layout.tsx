@@ -12,7 +12,15 @@ const inconsolataMedium = localFont({
 
 export const metadata: Metadata = {
   title: "Gallery",
-  // icons: "red.jpeg",
+  icons: {
+    icon: [
+      { media: "(prefers-color-scheme: dark)", url: "iconLight.svg" },
+      {
+        media: "(prefers-color-scheme: light)",
+        url: "icon.svg",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

@@ -19,7 +19,7 @@ export default function Floor(props: any) {
   );
 
   const repeatX = 24;
-  const repeatY = 1.2;
+  const repeatY = 1.4;
   colorMap.repeat.set(repeatX, repeatY);
   colorMap.wrapS = THREE.RepeatWrapping;
   colorMap.wrapT = THREE.RepeatWrapping;
@@ -47,9 +47,9 @@ export default function Floor(props: any) {
     <>
       <mesh
         receiveShadow
-        position={[w / 2 - screenWidth, -4.4, -1]}
+        position={[w / 2 - screenWidth, -4.8, -1]}
         rotation={[-1.5, 0, 0]}
-        scale={[2, 0.5, 1]}
+        scale={[2, 1.2, 1]}
       >
         <planeGeometry args={[w * 2 + screenWidth, 4]} />
         <meshStandardMaterial

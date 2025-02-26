@@ -11,6 +11,8 @@ export default function Home() {
       shadows
       style={{
         height: "100vh",
+        overflowX: "auto",
+        touchAction: "auto !important",
       }}
     >
       <directionalLight

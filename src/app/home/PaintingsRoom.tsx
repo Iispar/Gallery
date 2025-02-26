@@ -52,7 +52,8 @@ export default function PaintingsRoom(props: any) {
     state.camera.updateMatrixWorld();
   });
 
-  const handleDrag = (e: any) => {
+  const handleDrag = (e: any, type: string) => {
+    console.log(type);
     if (!isDraggingRef.current) return;
 
     const currentTime = Date.now();
@@ -70,7 +71,11 @@ export default function PaintingsRoom(props: any) {
       const velocity = Math.abs(deltaX / deltaTime);
       const speedFactor = Math.min(velocity * 2, 1);
 
-      scroll.el.scrollLeft += deltaX * speedFactor * -1;
+      if (type == "mobile") {
+        scroll.offset += deltaX * speedFactor * -0.01;
+      } else {
+        scroll.el.scrollLeft += deltaX * speedFactor * -1;
+      }
     }
 
     lastX = e.clientX;
@@ -88,15 +93,15 @@ export default function PaintingsRoom(props: any) {
   };
 
   useEffect(() => {
-    window.addEventListener("pointermove", handleDrag);
+    window.addEventListener("pointermove", (e) => handleDrag(e, "desktop"));
     window.addEventListener("pointerdown", handlePointerDown);
     window.addEventListener("pointerup", handlePointerUp);
-    window.addEventListener("touchmove", handleDrag);
+    window.addEventListener("touchmove", (e) => handleDrag(e, "mobile"));
     window.addEventListener("touchstart", handlePointerDown);
     window.addEventListener("touchend", handlePointerUp);
 
     return () => {
-      window.removeEventListener("pointermove", handleDrag);
+      window.removeEventListener("pointermove", (e) => handleDrag(e, "mobile"));
       window.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("pointerup", handlePointerUp);
     };
