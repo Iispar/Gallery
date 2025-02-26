@@ -47,6 +47,7 @@ export default function Wall(props: any) {
   return (
     <>
       <mesh
+        castShadow
         receiveShadow
         position={[w / 2 - screenWidth, 1.4, -0.9]}
         rotation={[0, 0, 0]}

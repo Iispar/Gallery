@@ -46,6 +46,7 @@ export default function Floor(props: any) {
   return (
     <>
       <mesh
+        castShadow
         receiveShadow
         position={[w / 2 - screenWidth, -4.8, -1]}
         rotation={[-1.5, 0, 0]}

@@ -17,7 +17,7 @@ export default function Home() {
       }}
     >
       <directionalLight
-        position={[0, 5, 4]}
+        position={[0, window.innerWidth > 800 ? 4 : 3, 4]}
         intensity={4}
         color={0xffffff}
         shadow-camera-left={-30}
