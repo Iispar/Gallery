@@ -30,14 +30,12 @@ export default function Home() {
         position={[0, window.innerWidth > 800 ? 4 : 3, 5]}
         intensity={4}
         color={0xffffff}
-        shadow-camera-near={0.1}
-        shadow-camera-far={10}
-        shadow-camera-left={-20}
-        shadow-camera-right={20}
-        shadow-camera-top={5}
-        shadow-camera-bottom={-5}
+        shadow-mapSize={[1024, 1024]}
         castShadow
-      />
+      >
+        <orthographicCamera attach="shadow-camera" args={[-10, 10, 10, -10]} />
+      </directionalLight>
+
       <Suspense
         fallback={
           <Html>
