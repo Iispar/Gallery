@@ -2,10 +2,20 @@
 
 import { Canvas } from "@react-three/fiber";
 import View from "./home/View";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Html } from "@react-three/drei";
 
 export default function Home() {
+  const [isBrowser, setIsBrowser] = useState(false);
+
+  useEffect(() => {
+    setIsBrowser(true); // This will set the flag to true once the component is mounted on the client
+  }, []);
+
+  if (!isBrowser) {
+    return null; // Don't render the component until it's mounted on the client
+  }
+
   return (
     <Canvas
       shadows
@@ -26,19 +36,17 @@ export default function Home() {
       />
       <Suspense
         fallback={
-          <>
-            <Html>
-              <div
-                style={{
-                  position: "absolute",
-                  left: "-40px",
-                  color: "#333333",
-                }}
-              >
-                loading...
-              </div>
-            </Html>
-          </>
+          <Html>
+            <div
+              style={{
+                position: "absolute",
+                left: "-40px",
+                color: "#333333",
+              }}
+            >
+              loading...
+            </div>
+          </Html>
         }
       >
         <View />
