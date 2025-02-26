@@ -122,7 +122,7 @@ export default function PaintingsRoom(props: any) {
           scroll or drag to view the art pieces.
         </Text>
       </mesh>
-      <mesh position={[-width / 2 + 1.8, 0.4, -0.18]} castShadow>
+      <mesh position={[-width / 2 + 1.8, 0.4, -0.22]} castShadow>
         <boxGeometry args={[3.2, 5, 0.02]} />
         <meshStandardMaterial color="white" />
 
@@ -183,7 +183,7 @@ export default function PaintingsRoom(props: any) {
           clicked={clicked}
           key={idx}
           id={idx}
-          position={[(1 + idx) * xW - width / 2, 1, -0.18]}
+          position={[(1 + idx) * xW - width / 2, 1, -0.2]}
           w={w}
           h={h}
           author={painting.author}

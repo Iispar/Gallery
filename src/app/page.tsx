@@ -9,11 +9,11 @@ export default function Home() {
   const [isBrowser, setIsBrowser] = useState(false);
 
   useEffect(() => {
-    setIsBrowser(true); // This will set the flag to true once the component is mounted on the client
+    setIsBrowser(true);
   }, []);
 
   if (!isBrowser) {
-    return null; // Don't render the component until it's mounted on the client
+    return null;
   }
 
   return (
@@ -27,11 +27,15 @@ export default function Home() {
       }}
     >
       <directionalLight
-        position={[0, window.innerWidth > 800 ? 4 : 3, 4]}
+        position={[0, window.innerWidth > 800 ? 4 : 3, 5]}
         intensity={4}
         color={0xffffff}
-        shadow-camera-left={-30}
-        shadow-camera-right={30}
+        shadow-camera-near={0.1}
+        shadow-camera-far={10}
+        shadow-camera-left={-20}
+        shadow-camera-right={20}
+        shadow-camera-top={5}
+        shadow-camera-bottom={-5}
         castShadow
       />
       <Suspense
@@ -40,7 +44,7 @@ export default function Home() {
             <div
               style={{
                 position: "absolute",
-                left: "-40px",
+                left: "-35px",
                 color: "#333333",
               }}
             >
