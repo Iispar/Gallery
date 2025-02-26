@@ -53,7 +53,6 @@ export default function PaintingsRoom(props: any) {
   });
 
   const handleDrag = (e: any, type: string) => {
-    console.log(type);
     if (!isDraggingRef.current) return;
 
     const currentTime = Date.now();

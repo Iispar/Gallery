@@ -13,6 +13,7 @@ export default function Home() {
         height: "100vh",
         overflowX: "auto",
         touchAction: "auto !important",
+        overflowY: "hidden",
       }}
     >
       <directionalLight
