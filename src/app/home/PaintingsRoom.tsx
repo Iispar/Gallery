@@ -71,7 +71,7 @@ export default function PaintingsRoom(props: any) {
       const speedFactor = Math.min(velocity * 2, 1);
 
       if (type == "mobile") {
-        scroll.offset += deltaX * speedFactor * -0.01;
+        // scroll.offset += deltaX * speedFactor * -0.01;
       } else {
         scroll.el.scrollLeft += deltaX * speedFactor * -1;
       }
