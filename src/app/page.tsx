@@ -10,10 +10,9 @@ export default function Home() {
     <Canvas
       shadows
       style={{
-        height: "100vh",
+        height: "100dvh",
         overflowX: "auto",
         touchAction: "auto !important",
-        overflowY: "hidden",
       }}
     >
       <directionalLight
