@@ -25,7 +25,7 @@ export default function PaintingsRoom(props: any) {
   let lastX: any = null;
   let lastTime = 0;
   const cameraPos = window.innerWidth < 800 ? 6 : 5;
-  const zoomZ = window.innerWidth < 800 ? 5.5 : 3.3;
+  const zoomZ = window.innerWidth < 800 ? 4.5 : 3.3;
   const zoomX = window.innerWidth < 800 ? 0.68 : 0.75;
 
   useFrame((state) => {
