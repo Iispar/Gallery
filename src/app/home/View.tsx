@@ -22,7 +22,7 @@ export default function View() {
     <ScrollControls
       horizontal
       distance={0.9}
-      damping={0.3}
+      damping={0}
       pages={(width / 3 - xW + (painting.length + 1) * xW) / width}
       enabled={clicked === null}
       prepend
