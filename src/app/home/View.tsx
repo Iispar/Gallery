@@ -22,8 +22,10 @@ export default function View() {
     <ScrollControls
       horizontal
       distance={0.9}
+      damping={0.3}
       pages={(width / 3 - xW + (painting.length + 1) * xW) / width}
       enabled={clicked === null}
+      prepend
     >
       <Scroll>
         <PaintingsRoom clicked={clicked} setClicked={setClicked} />

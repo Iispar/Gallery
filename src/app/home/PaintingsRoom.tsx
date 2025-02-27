@@ -16,7 +16,7 @@ export default function PaintingsRoom(props: any) {
 
   const w = 2.2;
   const h = 1.4;
-  const gap = 3;
+  const gap = 2;
   const paintings = painting;
   const xW = w + gap;
   const vec = new THREE.Vector3();
@@ -123,12 +123,12 @@ export default function PaintingsRoom(props: any) {
         </Text>
       </mesh>
       <mesh position={[-width / 2 + 1.8, 0.4, -0.22]} castShadow>
-        <boxGeometry args={[3.2, 5, 0.03]} />
+        <boxGeometry args={[3, 5, 0.03]} />
         <meshStandardMaterial color="white" />
 
         <Text
           letterSpacing={0.2}
-          fontSize={0.32}
+          fontSize={0.3}
           fontWeight={500}
           position={[-0, 2.2, 0.02]}
           color="#333333"
@@ -138,7 +138,7 @@ export default function PaintingsRoom(props: any) {
         <Text
           letterSpacing={0.2}
           textAlign="justify"
-          maxWidth={2.8}
+          maxWidth={2.6}
           fontSize={0.16}
           position={[0, 0.5, 0.02]}
           color="#333333"
@@ -157,7 +157,7 @@ export default function PaintingsRoom(props: any) {
           <Text
             letterSpacing={0.2}
             fontSize={0.13}
-            position={[0.3, -2.1, 0.02]}
+            position={[0.28, -2.1, 0.02]}
             color="#0000EE"
           >
             iiro.s.partanen@gmail.com
@@ -169,7 +169,7 @@ export default function PaintingsRoom(props: any) {
           <Text
             letterSpacing={0.2}
             fontSize={0.13}
-            position={[0.68, -2.3, 0.02]}
+            position={[0.66, -2.3, 0.02]}
             color="#0000EE"
           >
             github.com/iispar
@@ -183,7 +183,7 @@ export default function PaintingsRoom(props: any) {
           clicked={clicked}
           key={idx}
           id={idx}
-          position={[(1 + idx) * xW - width / 2, 1, -0.2]}
+          position={[1 + (1 + idx) * xW - width / 2, 1, -0.2]}
           w={w}
           h={h}
           author={painting.author}

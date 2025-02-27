@@ -118,8 +118,8 @@ export const painting = [
     900,
 
     "27/02/2025",
-    "akryyli",
-    "acrylic",
+    "mixed media",
+    "mixed media",
     "jungle.jpeg",
     240,
     343
