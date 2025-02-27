@@ -30,10 +30,10 @@ export default function Home() {
         position={[0, window.innerWidth > 800 ? 4 : 3, 5]}
         intensity={4}
         color={0xffffff}
-        shadow-mapSize={[1024, 1024]}
+        shadow-mapSize={[2048, 2048]}
         castShadow
       >
-        <orthographicCamera attach="shadow-camera" args={[-10, 10, 10, -10]} />
+        <orthographicCamera attach="shadow-camera" args={[-10, 10, 3, -2]} />
       </directionalLight>
 
       <Suspense
@@ -42,7 +42,7 @@ export default function Home() {
             <div
               style={{
                 position: "absolute",
-                left: "-35px",
+                left: "-32px",
                 color: "#333333",
               }}
             >

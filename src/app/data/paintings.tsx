@@ -10,6 +10,8 @@ export class PaintingClass {
   typeFin: string;
   typeEng: string;
   imageUrl: string;
+  paintingSizeX: number;
+  paintingSizeY: number;
 
   constructor(
     author: string,
@@ -22,7 +24,9 @@ export class PaintingClass {
     date: string,
     typeFin: string,
     typeEng: string,
-    imageUrl: string
+    imageUrl: string,
+    paintingSizeX: number,
+    paintingSizeY: number
   ) {
     this.author = author;
     this.year = year;
@@ -35,6 +39,8 @@ export class PaintingClass {
     this.typeFin = typeFin;
     this.typeEng = typeEng;
     this.imageUrl = imageUrl;
+    this.paintingSizeX = paintingSizeX;
+    this.paintingSizeY = paintingSizeY;
   }
 }
 
@@ -45,12 +51,15 @@ export const painting = [
     "Suomi",
     "Finland",
     "Red bird",
-    295,
     210,
+    295,
+
     "10/02/2024",
     "akryyli",
     "acrylic",
-    "red.jpeg"
+    "red.jpeg",
+    160,
+    225
   ),
   new PaintingClass(
     "Iiro Partanen",
@@ -58,12 +67,15 @@ export const painting = [
     "Suomi",
     "Finland",
     "blue bird",
-    240,
     180,
+    240,
+
     "14/02/2024",
     "akryyli",
     "acrylic",
-    "blue.jpg"
+    "blue.jpg",
+    140,
+    193
   ),
   new PaintingClass(
     "Iiro Partanen",
@@ -71,12 +83,15 @@ export const painting = [
     "Suomi",
     "Finland",
     "three birds",
-    295,
     210,
+    295,
+
     "27/11/2025",
     "linoleum",
     "linoleum",
-    "three.jpg"
+    "three.jpg",
+    160,
+    225
   ),
   new PaintingClass(
     "Iiro Partanen",
@@ -89,6 +104,24 @@ export const painting = [
     "15/09/2024",
     "akryyli",
     "acrylic",
-    "duck.jpg"
+    "duck.jpg",
+    120,
+    120
+  ),
+  new PaintingClass(
+    "Iiro Partanen",
+    "2025",
+    "Suomi",
+    "Finland",
+    "jungle",
+    650,
+    900,
+
+    "27/02/2025",
+    "akryyli",
+    "acrylic",
+    "jungle.jpeg",
+    240,
+    343
   ),
 ];

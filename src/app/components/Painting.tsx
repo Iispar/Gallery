@@ -25,6 +25,8 @@ export default function Painting(props: any) {
     typeFin,
     typeEng,
     imageUrl,
+    paintingSizeX,
+    paintingSizeY,
   } = props;
   const texture = useLoader(TextureLoader, imageUrl as string);
   const { gl } = useThree();
@@ -63,7 +65,7 @@ export default function Painting(props: any) {
 
       <mesh
         castShadow
-        scale={[sizeY / 100, sizeX / 100, 1]}
+        scale={[paintingSizeX / 100, paintingSizeY / 100, 1]}
         onClick={() =>
           setImage({ position: position, hash: id, ref: groupRef })
         }
@@ -87,8 +89,8 @@ export default function Painting(props: any) {
         date={date}
         typeFin={typeFin}
         typeEng={typeEng}
-        x={sizeX / 350 + 1.1}
-        y={-(sizeY / 100) + 0.9}
+        x={paintingSizeX / 200 + 0.8}
+        y={-(paintingSizeY / 200) + 0.3}
       />
     </group>
   );

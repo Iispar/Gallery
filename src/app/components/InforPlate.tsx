@@ -35,7 +35,7 @@ export default function InfoPlate(props: any) {
   });
 
   return (
-    <group ref={groupRef} position={[x, y, 0]}>
+    <group ref={groupRef} position={[x, y, -0.03]}>
       <mesh castShadow>
         <boxGeometry args={[1.3, 0.5, 0.01]}></boxGeometry>
         <meshStandardMaterial color="white" />

@@ -24,7 +24,7 @@ export default function PaintingsRoom(props: any) {
   const isDraggingRef = useRef(false);
   let lastX: any = null;
   let lastTime = 0;
-  const cameraPos = window.innerWidth < 800 ? 7 : 5;
+  const cameraPos = window.innerWidth < 800 ? 6 : 5;
   const zoomZ = window.innerWidth < 800 ? 5.5 : 3.3;
   const zoomX = window.innerWidth < 800 ? 0.68 : 0.75;
 
@@ -123,7 +123,7 @@ export default function PaintingsRoom(props: any) {
         </Text>
       </mesh>
       <mesh position={[-width / 2 + 1.8, 0.4, -0.22]} castShadow>
-        <boxGeometry args={[3.2, 5, 0.02]} />
+        <boxGeometry args={[3.2, 5, 0.03]} />
         <meshStandardMaterial color="white" />
 
         <Text
@@ -197,6 +197,8 @@ export default function PaintingsRoom(props: any) {
           typeFin={painting.typeFin}
           typeEng={painting.typeEng}
           imageUrl={painting.imageUrl}
+          paintingSizeX={painting.paintingSizeX}
+          paintingSizeY={painting.paintingSizeY}
         />
       ))}
 
