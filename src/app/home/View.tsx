@@ -25,7 +25,7 @@ export default function View() {
 
   // Event handler for touch scroll
   const handleTouchStart = () => {
-    setDamping(0);
+    setDamping(0.1);
   };
 
   useEffect(() => {
