@@ -18,6 +18,7 @@ export default function View() {
   const xW = w + gap;
 
   const handleWheel = (event: WheelEvent) => {
+    event.preventDefault();
     if (event.deltaY !== 0) {
       setDamping(0.2);
     }
