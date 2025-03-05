@@ -43,7 +43,7 @@ export default function Home() {
               style={{
                 position: "absolute",
                 left: "-35px",
-                bottom: "10px",
+                bottom: "0px",
                 color: "#333333",
               }}
             >

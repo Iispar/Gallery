@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useScroll, Text, DragControls } from "@react-three/drei";
+import { useScroll, Text, DragControls, Center } from "@react-three/drei";
 import { useLoader, useThree } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { TextureLoader } from "three";
@@ -97,22 +97,24 @@ export default function Painting(props: any) {
       )}
 
       <DragControls onDrag={onDrag}>
-        <mesh
-          castShadow
-          ref={meshRef}
-          scale={[paintingSizeX / 100, paintingSizeY / 100, 1]}
-          onClick={() =>
-            setImage({ position: position, hash: id, ref: groupRef })
-          }
-        >
-          <boxGeometry attach="geometry" args={[1, 1, 0.08]} />
-          <meshBasicMaterial attach="material-0" color="white" />
-          <meshBasicMaterial attach="material-1" color="white" />
-          <meshBasicMaterial attach="material-2" color="white" />
-          <meshBasicMaterial attach="material-3" color="white" />
-          <meshBasicMaterial attach="material-4" map={texture} />
-          <meshBasicMaterial attach="material-5" color="white" />
-        </mesh>
+        <Center>
+          <mesh
+            castShadow
+            ref={meshRef}
+            scale={[paintingSizeX / 100, paintingSizeY / 100, 1]}
+            onClick={() =>
+              setImage({ position: position, hash: id, ref: groupRef })
+            }
+          >
+            <boxGeometry attach="geometry" args={[1, 1, 0.08]} />
+            <meshBasicMaterial attach="material-0" color="white" />
+            <meshBasicMaterial attach="material-1" color="white" />
+            <meshBasicMaterial attach="material-2" color="white" />
+            <meshBasicMaterial attach="material-3" color="white" />
+            <meshBasicMaterial attach="material-4" map={texture} />
+            <meshBasicMaterial attach="material-5" color="white" />
+          </mesh>
+        </Center>
       </DragControls>
 
       <InfoPlate
