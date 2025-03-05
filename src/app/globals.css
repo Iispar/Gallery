@@ -40,7 +40,7 @@ html,
 body {
   letter-spacing: 0.03rem;
   overscroll-behavior: none;
-  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 p {
