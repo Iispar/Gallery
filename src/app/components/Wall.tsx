@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useFrame, useLoader } from "@react-three/fiber";
-import { Mesh, TextureLoader } from "three";
-import React, { useRef } from "react";
+import { useLoader } from "@react-three/fiber";
+import { TextureLoader } from "three";
+import React from "react";
 import * as THREE from "three";
 
 export default function Wall(props: any) {
   const { w, screenWidth } = props;
-  const meshRef = useRef<Mesh>(null);
 
   const [colorMap, displacementMap, normalMap, roughnessMap] = useLoader(
     TextureLoader,
@@ -41,9 +40,6 @@ export default function Wall(props: any) {
   // aoMap.wrapS = THREE.RepeatWrapping;
   // aoMap.wrapT = THREE.RepeatWrapping;
 
-  useFrame(() => {
-    if (!meshRef.current) return;
-  });
   return (
     <>
       <mesh

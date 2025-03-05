@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useFrame, useLoader } from "@react-three/fiber";
-import { Mesh, TextureLoader } from "three";
-import React, { useRef } from "react";
+import { useLoader } from "@react-three/fiber";
+import { TextureLoader } from "three";
+import React from "react";
 import * as THREE from "three";
 
 export default function Floor(props: any) {
-  const meshRef = useRef<Mesh>(null);
   const { w, screenWidth } = props;
 
   const [colorMap, displacementMap, normalMap, roughnessMap] = useLoader(
@@ -40,9 +39,6 @@ export default function Floor(props: any) {
   // aoMap.wrapS = THREE.RepeatWrapping;
   // aoMap.wrapT = THREE.RepeatWrapping;
 
-  useFrame(() => {
-    if (!meshRef.current) return;
-  });
   return (
     <>
       <mesh

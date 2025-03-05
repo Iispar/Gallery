@@ -42,8 +42,8 @@ export default function Home() {
             <div
               style={{
                 position: "absolute",
-                left: "-40px",
-                bottom: "20px",
+                left: "-35px",
+                bottom: "10px",
                 color: "#333333",
               }}
             >

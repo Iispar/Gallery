@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useScroll, Text } from "@react-three/drei";
+import { useScroll, Text, DragControls } from "@react-three/drei";
 import { useLoader, useThree } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { TextureLoader } from "three";
 import InfoPlate from "./InforPlate";
 import { lerp } from "three/src/math/MathUtils";
-import { useDrag } from "@use-gesture/react";
 
 export default function Painting(props: any) {
   const {
@@ -35,8 +34,6 @@ export default function Painting(props: any) {
   const scroll = useScroll();
   const [scrollLeft, setScrollLeft] = useState(0);
   const [doubleClick, setDoubleClick] = useState(false);
-  const [yRotation, setYRotation] = useState(0);
-  const [xRotation, setXRotation] = useState(0);
 
   const groupRef = useRef<any>(null);
   const meshRef = useRef<any>(null);
@@ -63,8 +60,6 @@ export default function Painting(props: any) {
       );
     } else {
       setDoubleClick(false);
-      setXRotation(0);
-      setYRotation(0);
       meshRef.current!.rotation.y = 0;
       meshRef.current!.rotation.x = 0;
       meshRef.current!.position.z = lerp(0, 0, 0);
@@ -77,27 +72,11 @@ export default function Painting(props: any) {
   const clamp = (value: any, min: any, max: any) =>
     Math.min(Math.max(value, min), max);
 
-  const bind = useDrag(({ offset: [x, y], memo = [xRotation, yRotation] }) => {
+  const onDrag = () => {
     if (doubleClick) {
-      const newRotationX = clamp(
-        memo[0] + y * 0.0001,
-        -Math.PI / 10,
-        Math.PI / 10
-      );
-      const newRotationY = clamp(
-        memo[1] - x * 0.0001,
-        -Math.PI / 10,
-        Math.PI / 10
-      );
-
-      console.log(newRotationX);
-      console.log(newRotationY);
-
-      setXRotation(newRotationX);
-      setYRotation(newRotationY);
-      return [newRotationX, newRotationY];
+      console.log("call");
     }
-  }, {});
+  };
 
   return (
     <group ref={groupRef} position={position}>
@@ -117,24 +96,24 @@ export default function Painting(props: any) {
         <></>
       )}
 
-      <mesh
-        {...bind()}
-        castShadow
-        rotation={[xRotation, yRotation, 0]}
-        ref={meshRef}
-        scale={[paintingSizeX / 100, paintingSizeY / 100, 1]}
-        onClick={() =>
-          setImage({ position: position, hash: id, ref: groupRef })
-        }
-      >
-        <boxGeometry attach="geometry" args={[1, 1, 0.08]} />
-        <meshBasicMaterial attach="material-0" color="white" />
-        <meshBasicMaterial attach="material-1" color="white" />
-        <meshBasicMaterial attach="material-2" color="white" />
-        <meshBasicMaterial attach="material-3" color="white" />
-        <meshBasicMaterial attach="material-4" map={texture} />
-        <meshBasicMaterial attach="material-5" color="white" />
-      </mesh>
+      <DragControls onDrag={onDrag}>
+        <mesh
+          castShadow
+          ref={meshRef}
+          scale={[paintingSizeX / 100, paintingSizeY / 100, 1]}
+          onClick={() =>
+            setImage({ position: position, hash: id, ref: groupRef })
+          }
+        >
+          <boxGeometry attach="geometry" args={[1, 1, 0.08]} />
+          <meshBasicMaterial attach="material-0" color="white" />
+          <meshBasicMaterial attach="material-1" color="white" />
+          <meshBasicMaterial attach="material-2" color="white" />
+          <meshBasicMaterial attach="material-3" color="white" />
+          <meshBasicMaterial attach="material-4" map={texture} />
+          <meshBasicMaterial attach="material-5" color="white" />
+        </mesh>
+      </DragControls>
 
       <InfoPlate
         author={author}
