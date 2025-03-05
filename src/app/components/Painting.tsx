@@ -77,28 +77,27 @@ export default function Painting(props: any) {
   const clamp = (value: any, min: any, max: any) =>
     Math.min(Math.max(value, min), max);
 
-  const bind = useDrag(
-    ({ offset: [x, y], memo = [xRotation, yRotation] }) => {
-      console.log("call");
-      if (doubleClick) {
-        const newRotationX = clamp(
-          memo[0] + y * 0.001,
-          -Math.PI / 10,
-          Math.PI / 10
-        );
-        const newRotationY = clamp(
-          memo[1] - x * 0.001,
-          -Math.PI / 10,
-          Math.PI / 10
-        );
+  const bind = useDrag(({ offset: [x, y], memo = [xRotation, yRotation] }) => {
+    if (doubleClick) {
+      const newRotationX = clamp(
+        memo[0] + y * 0.0001,
+        -Math.PI / 10,
+        Math.PI / 10
+      );
+      const newRotationY = clamp(
+        memo[1] - x * 0.0001,
+        -Math.PI / 10,
+        Math.PI / 10
+      );
 
-        setXRotation(newRotationX);
-        setYRotation(newRotationY);
-        return memo;
-      }
-    },
-    { filterTaps: true, touch: true }
-  );
+      console.log(newRotationX);
+      console.log(newRotationY);
+
+      setXRotation(newRotationX);
+      setYRotation(newRotationY);
+      return [newRotationX, newRotationY];
+    }
+  }, {});
 
   return (
     <group ref={groupRef} position={position}>
@@ -107,7 +106,7 @@ export default function Painting(props: any) {
           <Text
             fontSize={0.3}
             letterSpacing={0.2}
-            position={[1, 2.0, 0.1]}
+            position={[0.85, 2.0, 0.1]}
             color="grey"
             fontWeight={400}
           >

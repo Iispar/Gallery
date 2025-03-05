@@ -22,13 +22,13 @@ export default function Home() {
       style={{
         height: "100dvh",
         overflowX: "auto",
-        touchAction: "auto !important",
+        touchAction: "none !important",
         overflowY: "hidden",
       }}
     >
       <directionalLight
         position={[0, window.innerWidth > 800 ? 4 : 3, 5]}
-        intensity={2}
+        intensity={3}
         color={0xffffff}
         shadow-mapSize={[2048, 2048]}
         castShadow
@@ -42,8 +42,8 @@ export default function Home() {
             <div
               style={{
                 position: "absolute",
-                left: "-20px",
-                bottom: "40px",
+                left: "-40px",
+                bottom: "20px",
                 color: "#333333",
               }}
             >
