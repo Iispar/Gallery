@@ -41,7 +41,6 @@ body {
   letter-spacing: 0.03rem;
   overscroll-behavior: none;
   overflow-y: hidden;
-  touch-action: none;
 }
 
 p {

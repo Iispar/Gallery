@@ -39,6 +39,7 @@ export default function View() {
 
   return (
     <ScrollControls
+      style={{ touchAction: "none" }}
       horizontal
       distance={0.9}
       damping={damping}

@@ -3,7 +3,7 @@
 import { useScroll, Text, DragControls, Center } from "@react-three/drei";
 import { useLoader, useThree } from "@react-three/fiber";
 import { useRef, useState } from "react";
-import { TextureLoader } from "three";
+import { Matrix4, TextureLoader, Vector3 } from "three";
 import InfoPlate from "./InforPlate";
 import { lerp } from "three/src/math/MathUtils";
 
@@ -34,6 +34,8 @@ export default function Painting(props: any) {
   const scroll = useScroll();
   const [scrollLeft, setScrollLeft] = useState(0);
   const [doubleClick, setDoubleClick] = useState(false);
+  const [xRot, setXRot] = useState(0);
+  const [yRot, setYRot] = useState(0);
 
   const groupRef = useRef<any>(null);
   const meshRef = useRef<any>(null);
@@ -72,10 +74,32 @@ export default function Painting(props: any) {
   const clamp = (value: any, min: any, max: any) =>
     Math.min(Math.max(value, min), max);
 
-  const onDrag = () => {
-    if (doubleClick) {
-      console.log("call");
-    }
+  const [prevPosition, setPrevPosition] = useState(new Vector3(0, 0, 0));
+
+  const onDrag = (
+    localMatrix: any,
+    deltaLocalMatrix: any,
+    worldMatrix: any,
+    deltaWorldMatrix: any
+  ) => {
+    // Extract the position from the world matrix (this is the position of the object in 3D space)
+    const currentPosition = new Vector3().setFromMatrixPosition(
+      deltaLocalMatrix
+    );
+
+    const newRotationX = clamp(
+      meshRef.current.rotation.x + currentPosition.y * 0.001,
+      -Math.PI / 10,
+      Math.PI / 10
+    );
+    const newRotationY = clamp(
+      meshRef.current.rotation.y - currentPosition.x * 0.001,
+      -Math.PI / 10,
+      Math.PI / 10
+    );
+
+    meshRef.current.rotation.x = newRotationX;
+    meshRef.current.rotation.y = newRotationY;
   };
 
   return (
@@ -96,25 +120,23 @@ export default function Painting(props: any) {
         <></>
       )}
 
-      <DragControls onDrag={onDrag}>
-        <Center>
-          <mesh
-            castShadow
-            ref={meshRef}
-            scale={[paintingSizeX / 100, paintingSizeY / 100, 1]}
-            onClick={() =>
-              setImage({ position: position, hash: id, ref: groupRef })
-            }
-          >
-            <boxGeometry attach="geometry" args={[1, 1, 0.08]} />
-            <meshBasicMaterial attach="material-0" color="white" />
-            <meshBasicMaterial attach="material-1" color="white" />
-            <meshBasicMaterial attach="material-2" color="white" />
-            <meshBasicMaterial attach="material-3" color="white" />
-            <meshBasicMaterial attach="material-4" map={texture} />
-            <meshBasicMaterial attach="material-5" color="white" />
-          </mesh>
-        </Center>
+      <DragControls onDrag={onDrag} autoTransform={false}>
+        <mesh
+          castShadow
+          ref={meshRef}
+          scale={[paintingSizeX / 100, paintingSizeY / 100, 1]}
+          onClick={() =>
+            setImage({ position: position, hash: id, ref: groupRef })
+          }
+        >
+          <boxGeometry attach="geometry" args={[1, 1, 0.08]} />
+          <meshBasicMaterial attach="material-0" color="white" />
+          <meshBasicMaterial attach="material-1" color="white" />
+          <meshBasicMaterial attach="material-2" color="white" />
+          <meshBasicMaterial attach="material-3" color="white" />
+          <meshBasicMaterial attach="material-4" map={texture} />
+          <meshBasicMaterial attach="material-5" color="white" />
+        </mesh>
       </DragControls>
 
       <InfoPlate

@@ -21,8 +21,7 @@ export default function Home() {
       shadows
       style={{
         height: "100dvh",
-        overflowX: "auto",
-        touchAction: "none !important",
+
         overflowY: "hidden",
       }}
     >
