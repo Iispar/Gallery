@@ -82,24 +82,25 @@ export default function Painting(props: any) {
     worldMatrix: any,
     deltaWorldMatrix: any
   ) => {
-    // Extract the position from the world matrix (this is the position of the object in 3D space)
-    const currentPosition = new Vector3().setFromMatrixPosition(
-      deltaLocalMatrix
-    );
+    if (doubleClick) {
+      const currentPosition = new Vector3().setFromMatrixPosition(
+        deltaLocalMatrix
+      );
 
-    const newRotationX = clamp(
-      meshRef.current.rotation.x + currentPosition.y * 0.001,
-      -Math.PI / 10,
-      Math.PI / 10
-    );
-    const newRotationY = clamp(
-      meshRef.current.rotation.y - currentPosition.x * 0.001,
-      -Math.PI / 10,
-      Math.PI / 10
-    );
+      const newRotationX = clamp(
+        meshRef.current.rotation.x + currentPosition.y * 0.01,
+        -Math.PI / 10,
+        Math.PI / 10
+      );
+      const newRotationY = clamp(
+        meshRef.current.rotation.y - currentPosition.x * 0.01,
+        -Math.PI / 10,
+        Math.PI / 10
+      );
 
-    meshRef.current.rotation.x = newRotationX;
-    meshRef.current.rotation.y = newRotationY;
+      meshRef.current.rotation.x = newRotationX;
+      meshRef.current.rotation.y = newRotationY;
+    }
   };
 
   return (
