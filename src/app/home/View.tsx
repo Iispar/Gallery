@@ -11,7 +11,7 @@ import PaintingsRoom from "./PaintingsRoom";
 export default function View() {
   const { width } = useThree((state: any) => state.viewport);
   const [clicked, setClicked] = useState(null);
-  const [damping, setDamping] = useState(0);
+  const [damping, setDamping] = useState(0.1);
 
   const w = 2.2;
   const gap = 3;

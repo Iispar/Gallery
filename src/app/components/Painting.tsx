@@ -5,6 +5,8 @@ import { useLoader, useThree } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { TextureLoader } from "three";
 import InfoPlate from "./InforPlate";
+import { lerp } from "three/src/math/MathUtils";
+import { useDrag } from "@use-gesture/react";
 
 export default function Painting(props: any) {
   const {
@@ -32,18 +34,71 @@ export default function Painting(props: any) {
   const { gl } = useThree();
   const scroll = useScroll();
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [doubleClick, setDoubleClick] = useState(false);
+  const [yRotation, setYRotation] = useState(0);
+  const [xRotation, setXRotation] = useState(0);
 
-  const groupRef = useRef(null);
+  const groupRef = useRef<any>(null);
+  const meshRef = useRef<any>(null);
 
   const resetImage = () => {
+    meshRef.current!.position.z = lerp(0, 0, 0);
+    meshRef.current!.position.x = lerp(0, 0, 0);
     setClicked(null);
     scroll.el.scrollLeft = scrollLeft;
   };
 
   const setImage = (props: unknown) => {
-    setClicked({ position: position, hash: id, ref: groupRef });
+    if (clicked && id === clicked.hash && !doubleClick) {
+      setDoubleClick(true);
+      meshRef.current!.position.z = lerp(
+        meshRef.current!.position.z,
+        60,
+        0.025
+      );
+      meshRef.current!.position.x = lerp(
+        meshRef.current!.position.x,
+        35,
+        0.025
+      );
+    } else {
+      setDoubleClick(false);
+      setXRotation(0);
+      setYRotation(0);
+      meshRef.current!.rotation.y = 0;
+      meshRef.current!.rotation.x = 0;
+      meshRef.current!.position.z = lerp(0, 0, 0);
+      meshRef.current!.position.x = lerp(0, 0, 0);
+      setClicked({ position: position, hash: id, ref: groupRef });
+    }
     setScrollLeft(scroll.el.scrollLeft);
   };
+
+  const clamp = (value: any, min: any, max: any) =>
+    Math.min(Math.max(value, min), max);
+
+  const bind = useDrag(
+    ({ offset: [x, y], memo = [xRotation, yRotation] }) => {
+      console.log("call");
+      if (doubleClick) {
+        const newRotationX = clamp(
+          memo[0] + y * 0.001,
+          -Math.PI / 10,
+          Math.PI / 10
+        );
+        const newRotationY = clamp(
+          memo[1] - x * 0.001,
+          -Math.PI / 10,
+          Math.PI / 10
+        );
+
+        setXRotation(newRotationX);
+        setYRotation(newRotationY);
+        return memo;
+      }
+    },
+    { filterTaps: true, touch: true }
+  );
 
   return (
     <group ref={groupRef} position={position}>
@@ -64,7 +119,10 @@ export default function Painting(props: any) {
       )}
 
       <mesh
+        {...bind()}
         castShadow
+        rotation={[xRotation, yRotation, 0]}
+        ref={meshRef}
         scale={[paintingSizeX / 100, paintingSizeY / 100, 1]}
         onClick={() =>
           setImage({ position: position, hash: id, ref: groupRef })

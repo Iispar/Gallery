@@ -28,7 +28,7 @@ export default function Home() {
     >
       <directionalLight
         position={[0, window.innerWidth > 800 ? 4 : 3, 5]}
-        intensity={4}
+        intensity={2}
         color={0xffffff}
         shadow-mapSize={[2048, 2048]}
         castShadow
@@ -42,7 +42,8 @@ export default function Home() {
             <div
               style={{
                 position: "absolute",
-                left: "-32px",
+                left: "-20px",
+                bottom: "40px",
                 color: "#333333",
               }}
             >
