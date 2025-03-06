@@ -40,14 +40,15 @@ export default function Painting(props: any) {
   let speed = 0.1;
   let dragSpeed = 0.1;
 
-  const groupRef = useRef<any>(null);
-  const meshRef = useRef<any>(null);
-  const zoomZ = window.innerWidth < 800 ? 2 : 1.7;
-  const zoomX = 0.7;
   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
+
+  const groupRef = useRef<any>(null);
+  const meshRef = useRef<any>(null);
+  const zoomZ = window.innerWidth < 800 ? 2.3 : 2.3;
+  const zoomX = 0.7;
 
   const resetImage = () => {
     meshRef.current!.rotation.y = 0;
@@ -59,15 +60,18 @@ export default function Painting(props: any) {
   };
 
   useFrame((state) => {
-    if (doubleClick) {
-      const zoom = zoomZ - sizeY / 800;
+    if (doubleClick && clicked && clicked.hash === id) {
+      const zoom = zoomZ - sizeY / 600;
       vec.set(zoomX, 0, zoom);
     } else if (clicked) {
       vec.set(0, 0, 0);
     }
-    if (isMobile) speed = 0.2;
-    else speed = 0.1;
-    meshRef.current!.position.lerp(vec, speed);
+
+    if (!meshRef.current!.position.equals(vec)) {
+      if (isMobile) speed = 0.2;
+      else speed = 0.1;
+      meshRef.current!.position.lerp(vec, speed);
+    }
   });
 
   const setImage = (props: unknown) => {
@@ -94,6 +98,8 @@ export default function Painting(props: any) {
     setDrag(true);
   };
 
+  const [prevPos, setPrevPos] = useState(new Vector3());
+
   const onDrag = (
     localMatrix: any,
     deltaLocalMatrix: any,
@@ -101,38 +107,29 @@ export default function Painting(props: any) {
     deltaWorldMatrix: any
   ) => {
     if (doubleClick) {
-      const currentPosition = new Vector3().setFromMatrixPosition(
-        deltaLocalMatrix
-      );
+      const currentPosition = new Vector3().setFromMatrixPosition(localMatrix);
 
-      if (isMobile) dragSpeed = 0.02;
-      else dragSpeed = 0.01;
+      const change = new Vector3().subVectors(currentPosition, prevPos);
+
+      if (isMobile) dragSpeed = 0.4;
+      else dragSpeed = 0.2;
 
       const newRotationX = clamp(
-        meshRef.current.rotation.x - currentPosition.y * dragSpeed,
-        -Math.PI / 8,
-        Math.PI / 8
+        meshRef.current.rotation.x - change.y * dragSpeed,
+        -Math.PI / 10,
+        Math.PI / 10
       );
       const newRotationY = clamp(
-        meshRef.current.rotation.y + currentPosition.x * dragSpeed,
-        -Math.PI / 8,
-        Math.PI / 8
+        meshRef.current.rotation.y + change.x * dragSpeed,
+        -Math.PI / 10,
+        Math.PI / 10
       );
 
       let dir = 0;
-      if (
-        (currentPosition.x < 0 && currentPosition.y < 0) ||
-        (currentPosition.x > 0 && currentPosition.y > 0)
-      ) {
-        dir = Math.min(
-          Math.abs(currentPosition.x),
-          Math.abs(currentPosition.y)
-        );
+      if ((change.x < 0 && change.y < 0) || (change.x > 0 && change.y > 0)) {
+        dir = Math.min(Math.abs(change.x), Math.abs(change.y));
       } else {
-        dir = -Math.min(
-          Math.abs(currentPosition.x),
-          Math.abs(currentPosition.y)
-        );
+        dir = -Math.min(Math.abs(change.x), Math.abs(change.y));
       }
 
       const newRotationZ = clamp(
@@ -144,6 +141,8 @@ export default function Painting(props: any) {
       meshRef.current.rotation.x = newRotationX;
       meshRef.current.rotation.y = newRotationY;
       meshRef.current.rotation.z = newRotationZ;
+
+      setPrevPos(currentPosition);
     }
   };
 
@@ -154,11 +153,28 @@ export default function Painting(props: any) {
           <Text
             fontSize={0.3}
             letterSpacing={0.2}
-            position={[0.85, 2.0, 0.1]}
+            position={[0.85, 2.4, 0]}
             color="grey"
             fontWeight={400}
           >
             RETURN
+          </Text>
+        </mesh>
+      ) : (
+        <></>
+      )}
+
+      {clicked?.hash == id && !doubleClick ? (
+        <mesh onClick={() => resetImage()}>
+          <Text
+            fontSize={0.1}
+            position={[0, -paintingSizeY / 200 - 0.15, 0]}
+            anchorX="center"
+            letterSpacing={0.2}
+            color="grey"
+            fontWeight={400}
+          >
+            click to inspect
           </Text>
         </mesh>
       ) : (
@@ -172,7 +188,7 @@ export default function Painting(props: any) {
         autoTransform={false}
       >
         <mesh
-          castShadow
+          castShadow={!doubleClick}
           ref={meshRef}
           scale={[paintingSizeX / 100, paintingSizeY / 100, 1]}
           onClick={() =>

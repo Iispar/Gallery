@@ -25,7 +25,7 @@ export default function PaintingsRoom(props: any) {
   let lastX: any = null;
   let lastTime = 0;
   const cameraPos = window.innerWidth < 800 ? 6 : 5;
-  const zoomZ = window.innerWidth < 800 ? 4.5 : 3.3;
+  const zoomZ = window.innerWidth < 800 ? 4.5 : 4.2;
   const zoomX = window.innerWidth < 800 ? 0.68 : 0.75;
   let speed = 0.03;
   const isMobile =
@@ -53,10 +53,12 @@ export default function PaintingsRoom(props: any) {
       current = "";
     }
 
-    if (isMobile) speed = 0.1;
-    else speed = 0.03;
-    state.camera.position.lerp(vec, speed);
-    state.camera.updateMatrixWorld();
+    if (!state.camera.position.equals(vec)) {
+      if (isMobile) speed = 0.1;
+      else speed = 0.03;
+      state.camera.position.lerp(vec, speed);
+      state.camera.updateMatrixWorld();
+    }
   });
 
   const handleDrag = (e: any) => {
@@ -116,7 +118,7 @@ export default function PaintingsRoom(props: any) {
           color="grey"
           fontWeight={600}
         >
-          scroll or drag to view the art pieces.
+          scroll, drag, and click to view the art pieces.
         </Text>
       </mesh>
       <mesh position={[-width / 2 + 1.8, 0.4, -0.22]} castShadow>
