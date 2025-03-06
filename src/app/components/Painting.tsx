@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useScroll, Text, DragControls, Center } from "@react-three/drei";
-import { useLoader, useThree } from "@react-three/fiber";
+import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { Matrix4, TextureLoader, Vector3 } from "three";
 import InfoPlate from "./InforPlate";
 import { lerp } from "three/src/math/MathUtils";
+import * as THREE from "three";
 
 export default function Painting(props: any) {
   const {
@@ -34,38 +35,37 @@ export default function Painting(props: any) {
   const scroll = useScroll();
   const [scrollLeft, setScrollLeft] = useState(0);
   const [doubleClick, setDoubleClick] = useState(false);
-  const [xRot, setXRot] = useState(0);
-  const [yRot, setYRot] = useState(0);
+  const [drag, setDrag] = useState(false);
+  const vec = new THREE.Vector3();
 
   const groupRef = useRef<any>(null);
   const meshRef = useRef<any>(null);
 
   const resetImage = () => {
+    meshRef.current!.rotation.y = 0;
+    meshRef.current!.rotation.x = 0;
     meshRef.current!.position.z = lerp(0, 0, 0);
     meshRef.current!.position.x = lerp(0, 0, 0);
     setClicked(null);
     scroll.el.scrollLeft = scrollLeft;
   };
 
+  useFrame((state) => {
+    if (doubleClick) {
+      vec.set(0.8, 0, 2);
+    } else if (clicked) {
+      vec.set(0, 0, 0);
+    }
+    meshRef.current!.position.lerp(vec, 0.1);
+  });
+
   const setImage = (props: unknown) => {
     if (clicked && id === clicked.hash && !doubleClick) {
       setDoubleClick(true);
-      meshRef.current!.position.z = lerp(
-        meshRef.current!.position.z,
-        60,
-        0.025
-      );
-      meshRef.current!.position.x = lerp(
-        meshRef.current!.position.x,
-        35,
-        0.025
-      );
-    } else {
+    } else if (!drag) {
       setDoubleClick(false);
       meshRef.current!.rotation.y = 0;
       meshRef.current!.rotation.x = 0;
-      meshRef.current!.position.z = lerp(0, 0, 0);
-      meshRef.current!.position.x = lerp(0, 0, 0);
       setClicked({ position: position, hash: id, ref: groupRef });
     }
     setScrollLeft(scroll.el.scrollLeft);
@@ -75,6 +75,14 @@ export default function Painting(props: any) {
     Math.min(Math.max(value, min), max);
 
   const [prevPosition, setPrevPosition] = useState(new Vector3(0, 0, 0));
+
+  const onDragEnd = () => {
+    setDrag(false);
+  };
+
+  const onDragStart = () => {
+    setDrag(true);
+  };
 
   const onDrag = (
     localMatrix: any,
@@ -88,12 +96,12 @@ export default function Painting(props: any) {
       );
 
       const newRotationX = clamp(
-        meshRef.current.rotation.x + currentPosition.y * 0.01,
+        meshRef.current.rotation.x - currentPosition.y * 0.01,
         -Math.PI / 10,
         Math.PI / 10
       );
       const newRotationY = clamp(
-        meshRef.current.rotation.y - currentPosition.x * 0.01,
+        meshRef.current.rotation.y + currentPosition.x * 0.01,
         -Math.PI / 10,
         Math.PI / 10
       );
@@ -105,7 +113,7 @@ export default function Painting(props: any) {
 
   return (
     <group ref={groupRef} position={position}>
-      {clicked?.hash == id ? (
+      {clicked?.hash == id && !doubleClick ? (
         <mesh onClick={() => resetImage()}>
           <Text
             fontSize={0.3}
@@ -121,7 +129,12 @@ export default function Painting(props: any) {
         <></>
       )}
 
-      <DragControls onDrag={onDrag} autoTransform={false}>
+      <DragControls
+        onDrag={onDrag}
+        onDragEnd={onDragEnd}
+        onDragStart={onDragStart}
+        autoTransform={false}
+      >
         <mesh
           castShadow
           ref={meshRef}
