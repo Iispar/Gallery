@@ -41,6 +41,8 @@ export default function Painting(props: any) {
 
   const groupRef = useRef<any>(null);
   const meshRef = useRef<any>(null);
+  const zoomZ = window.innerWidth < 800 ? 2 : 1.7;
+  const zoomX = 0.7;
   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
@@ -57,7 +59,8 @@ export default function Painting(props: any) {
 
   useFrame((state) => {
     if (doubleClick) {
-      vec.set(0.8, 0, 2);
+      const zoom = zoomZ - sizeY / 800;
+      vec.set(zoomX, 0, zoom);
     } else if (clicked) {
       vec.set(0, 0, 0);
     }
@@ -71,6 +74,7 @@ export default function Painting(props: any) {
       setDoubleClick(false);
       meshRef.current!.rotation.y = 0;
       meshRef.current!.rotation.x = 0;
+      meshRef.current.rotation.z = 0;
       setClicked({ position: position, hash: id, ref: groupRef });
     }
     setScrollLeft(scroll.el.scrollLeft);
@@ -98,22 +102,45 @@ export default function Painting(props: any) {
         deltaLocalMatrix
       );
 
-      if (isMobile) speed = 0.2;
-      else speed = 0.1;
+      if (isMobile) speed = 0.014;
+      else speed = 0.01;
 
       const newRotationX = clamp(
         meshRef.current.rotation.x - currentPosition.y * speed,
-        -Math.PI / 10,
-        Math.PI / 10
+        -Math.PI / 8,
+        Math.PI / 8
       );
       const newRotationY = clamp(
         meshRef.current.rotation.y + currentPosition.x * speed,
-        -Math.PI / 10,
-        Math.PI / 10
+        -Math.PI / 8,
+        Math.PI / 8
+      );
+
+      let dir = 0;
+      if (
+        (currentPosition.x < 0 && currentPosition.y < 0) ||
+        (currentPosition.x > 0 && currentPosition.y > 0)
+      ) {
+        dir = Math.min(
+          Math.abs(currentPosition.x),
+          Math.abs(currentPosition.y)
+        );
+      } else {
+        dir = -Math.min(
+          Math.abs(currentPosition.x),
+          Math.abs(currentPosition.y)
+        );
+      }
+
+      const newRotationZ = clamp(
+        meshRef.current.rotation.z + (dir / 2) * speed,
+        -Math.PI / 40,
+        Math.PI / 40
       );
 
       meshRef.current.rotation.x = newRotationX;
       meshRef.current.rotation.y = newRotationY;
+      meshRef.current.rotation.z = newRotationZ;
     }
   };
 
