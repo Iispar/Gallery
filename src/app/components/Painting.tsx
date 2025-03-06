@@ -37,9 +37,14 @@ export default function Painting(props: any) {
   const [doubleClick, setDoubleClick] = useState(false);
   const [drag, setDrag] = useState(false);
   const vec = new THREE.Vector3();
+  let speed = 0.1;
 
   const groupRef = useRef<any>(null);
   const meshRef = useRef<any>(null);
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
 
   const resetImage = () => {
     meshRef.current!.rotation.y = 0;
@@ -74,8 +79,6 @@ export default function Painting(props: any) {
   const clamp = (value: any, min: any, max: any) =>
     Math.min(Math.max(value, min), max);
 
-  const [prevPosition, setPrevPosition] = useState(new Vector3(0, 0, 0));
-
   const onDragEnd = () => {
     setDrag(false);
   };
@@ -95,13 +98,16 @@ export default function Painting(props: any) {
         deltaLocalMatrix
       );
 
+      if (isMobile) speed = 0.2;
+      else speed = 0.1;
+
       const newRotationX = clamp(
-        meshRef.current.rotation.x - currentPosition.y * 0.01,
+        meshRef.current.rotation.x - currentPosition.y * speed,
         -Math.PI / 10,
         Math.PI / 10
       );
       const newRotationY = clamp(
-        meshRef.current.rotation.y + currentPosition.x * 0.01,
+        meshRef.current.rotation.y + currentPosition.x * speed,
         -Math.PI / 10,
         Math.PI / 10
       );

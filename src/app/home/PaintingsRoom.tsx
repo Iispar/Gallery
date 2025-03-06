@@ -28,6 +28,10 @@ export default function PaintingsRoom(props: any) {
   const zoomZ = window.innerWidth < 800 ? 4.5 : 3.3;
   const zoomX = window.innerWidth < 800 ? 0.68 : 0.75;
   let speed = 0.03;
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
 
   useFrame((state) => {
     // TODO: When scrolling in clicked state scrolling is allowed. Scroll > leave > scroll
@@ -48,10 +52,7 @@ export default function PaintingsRoom(props: any) {
       vec.set(0, 0, cameraPos);
       current = "";
     }
-    const isMobile =
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      );
+
     if (isMobile) speed = 0.1;
     else speed = 0.03;
     state.camera.position.lerp(vec, speed);
