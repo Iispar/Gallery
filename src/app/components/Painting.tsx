@@ -38,6 +38,7 @@ export default function Painting(props: any) {
   const [drag, setDrag] = useState(false);
   const vec = new THREE.Vector3();
   let speed = 0.1;
+  let dragSpeed = 0.1;
 
   const groupRef = useRef<any>(null);
   const meshRef = useRef<any>(null);
@@ -64,7 +65,9 @@ export default function Painting(props: any) {
     } else if (clicked) {
       vec.set(0, 0, 0);
     }
-    meshRef.current!.position.lerp(vec, 0.1);
+    if (isMobile) speed = 0.2;
+    else speed = 0.1;
+    meshRef.current!.position.lerp(vec, speed);
   });
 
   const setImage = (props: unknown) => {
@@ -102,16 +105,16 @@ export default function Painting(props: any) {
         deltaLocalMatrix
       );
 
-      if (isMobile) speed = 0.014;
-      else speed = 0.01;
+      if (isMobile) dragSpeed = 0.02;
+      else dragSpeed = 0.01;
 
       const newRotationX = clamp(
-        meshRef.current.rotation.x - currentPosition.y * speed,
+        meshRef.current.rotation.x - currentPosition.y * dragSpeed,
         -Math.PI / 8,
         Math.PI / 8
       );
       const newRotationY = clamp(
-        meshRef.current.rotation.y + currentPosition.x * speed,
+        meshRef.current.rotation.y + currentPosition.x * dragSpeed,
         -Math.PI / 8,
         Math.PI / 8
       );
@@ -133,7 +136,7 @@ export default function Painting(props: any) {
       }
 
       const newRotationZ = clamp(
-        meshRef.current.rotation.z + (dir / 2) * speed,
+        meshRef.current.rotation.z + (dir / 2) * dragSpeed,
         -Math.PI / 40,
         Math.PI / 40
       );
