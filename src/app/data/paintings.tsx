@@ -114,14 +114,30 @@ export const painting = [
     "Suomi",
     "Finland",
     "jungle",
-    650,
-    900,
+    295,
+    420,
 
-    "27/02/2025",
-    "mixed media",
-    "mixed media",
-    "jungle.jpeg",
-    240,
-    343
+    "25/05/2025",
+    "akryyli",
+    "acrylic",
+    "jungle2.jpeg",
+    232,
+    330
+  ),
+  new PaintingClass(
+    "Iiro Partanen",
+    "2025",
+    "Suomi",
+    "Finland",
+    "palm",
+    150,
+    210,
+
+    "18/05/2025",
+    "akryyli",
+    "acrylic",
+    "palm.jpeg",
+    118,
+    165
   ),
 ];
