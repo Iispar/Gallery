@@ -47,6 +47,38 @@ export class PaintingClass {
 export const painting = [
   new PaintingClass(
     "Iiro Partanen",
+    "2025",
+    "Suomi",
+    "Finland",
+    "jungle",
+    295,
+    420,
+
+    "25/05/2025",
+    "akryyli",
+    "acrylic",
+    "jungle2.jpeg",
+    232,
+    330
+  ),
+  new PaintingClass(
+    "Iiro Partanen",
+    "2025",
+    "Suomi",
+    "Finland",
+    "palm",
+    150,
+    210,
+
+    "18/05/2025",
+    "akryyli",
+    "acrylic",
+    "palm.jpeg",
+    118,
+    165
+  ),
+  new PaintingClass(
+    "Iiro Partanen",
     "2024",
     "Suomi",
     "Finland",
@@ -107,37 +139,5 @@ export const painting = [
     "duck.jpg",
     120,
     120
-  ),
-  new PaintingClass(
-    "Iiro Partanen",
-    "2025",
-    "Suomi",
-    "Finland",
-    "jungle",
-    295,
-    420,
-
-    "25/05/2025",
-    "akryyli",
-    "acrylic",
-    "jungle2.jpeg",
-    232,
-    330
-  ),
-  new PaintingClass(
-    "Iiro Partanen",
-    "2025",
-    "Suomi",
-    "Finland",
-    "palm",
-    150,
-    210,
-
-    "18/05/2025",
-    "akryyli",
-    "acrylic",
-    "palm.jpeg",
-    118,
-    165
-  ),
+  )
 ];
