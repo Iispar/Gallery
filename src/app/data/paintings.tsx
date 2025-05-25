@@ -57,7 +57,7 @@ export const painting = [
     "25/05/2025",
     "akryyli",
     "acrylic",
-    "jungle2.jpeg",
+    "jungle2.jpg",
     232,
     330
   ),
@@ -73,7 +73,7 @@ export const painting = [
     "18/05/2025",
     "akryyli",
     "acrylic",
-    "palm.jpeg",
+    "palm.jpg",
     118,
     165
   ),
